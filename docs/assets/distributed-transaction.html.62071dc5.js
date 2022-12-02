@@ -1,0 +1,1 @@
+import{_ as e}from"./plugin-vue_export-helper.21dcd24c.js";import{o,c as r,b as t}from"./app.e590b483.js";const n={},s=t("p",null,[t("strong",null,"\u5206\u5E03\u5F0F\u4E8B\u52A1")],-1),c=[s];function a(_,i){return o(),r("div",null,c)}var u=e(n,[["render",a],["__file","distributed-transaction.html.vue"]]);export{u as default};
