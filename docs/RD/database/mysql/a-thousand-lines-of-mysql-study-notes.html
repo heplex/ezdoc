@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-beta.48" />
+    <meta name="theme" content="VuePress Theme Hope" />
+    <meta property="og:url" content="https://www.ezfri.com/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html"><meta property="og:site_name" content="EzFri"><meta property="og:title" content="一千行 MySQL 学习笔记"><meta property="og:type" content="article"><meta property="og:updated_time" content="2022-12-02T13:59:58.000Z"><meta property="og:locale" content="zh-CN"><meta property="article:tag" content="MySQL"><meta property="article:modified_time" content="2022-12-02T13:59:58.000Z"><meta name="robots" content="all"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="keywords" content="Java基础, 多线程, JVM, 虚拟机, 数据库, MySQL, Spring, Redis, MyBatis, 系统设计, 分布式, RPC, 高可用, 高并发"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3485688_dgpj0gum7f.css"><title>一千行 MySQL 学习笔记 | EzFri</title><meta name="description" content="EzFri知识库">
+    <style>
+      :root {
+        --bg-color: #fff;
+      }
+
+      html[data-theme="dark"] {
+        --bg-color: #1d2025;
+      }
+
+      html,
+      body {
+        background-color: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.querySelector("html").setAttribute("data-theme", "dark");
+      }
+    </script>
+    <link rel="stylesheet" href="/assets/style.eed630e3.css">
+    <link rel="modulepreload" href="/assets/app.27c4730f.js"><link rel="modulepreload" href="/assets/a-thousand-lines-of-mysql-study-notes.html.8f1b4fb6.js"><link rel="modulepreload" href="/assets/plugin-vue_export-helper.21dcd24c.js"><link rel="modulepreload" href="/assets/a-thousand-lines-of-mysql-study-notes.html.e15999c6.js"><link rel="prefetch" href="/assets/home.html.cf680523.js"><link rel="prefetch" href="/assets/index.html.e304fcf7.js"><link rel="prefetch" href="/assets/slide.html.194facad.js"><link rel="prefetch" href="/assets/home.html.38b66cdd.js"><link rel="prefetch" href="/assets/home.html.af75b058.js"><link rel="prefetch" href="/assets/home.html.71b1ca4f.js"><link rel="prefetch" href="/assets/home.html.ce1a6133.js"><link rel="prefetch" href="/assets/interview-ready.html.2e762f9b.js"><link rel="prefetch" href="/assets/interview-recards.html.20f21e29.js"><link rel="prefetch" href="/assets/devops.html.b1575585.js"><link rel="prefetch" href="/assets/basis.html.abfab2cc.js"><link rel="prefetch" href="/assets/character-set.html.41d6485e.js"><link rel="prefetch" href="/assets/cluster.html.3a4cd408.js"><link rel="prefetch" href="/assets/disaster-recovery_remote-live.html.cf88d69f.js"><link rel="prefetch" href="/assets/fallback_circuit-breaker.html.2d06c9e3.js"><link rel="prefetch" href="/assets/high-availability-system-design.html.549a70cf.js"><link rel="prefetch" href="/assets/limit-request.html.df37cefa.js"><link rel="prefetch" href="/assets/performance-test.html.711a0cad.js"><link rel="prefetch" href="/assets/timeout-and-retry.html.b70dff28.js"><link rel="prefetch" href="/assets/load-balancing.html.67da77d5.js"><link rel="prefetch" href="/assets/read-and-write-separation-and-library-subtable.html.c44692c7.js"><link rel="prefetch" href="/assets/api-gateway.html.36151504.js"><link rel="prefetch" href="/assets/distributed-id.html.957080df.js"><link rel="prefetch" href="/assets/distributed-transaction.html.4d79482e.js"><link rel="prefetch" href="/assets/design-pattern.html.6f20f626.js"><link rel="prefetch" href="/assets/J2EE基础知识.html.9dd70d78.js"><link rel="prefetch" href="/assets/schedule-task.html.4ba2373d.js"><link rel="prefetch" href="/assets/system-design-questions.html.b73c4747.js"><link rel="prefetch" href="/assets/10-classical-sorting-algorithms.html.cc46b6e2.js"><link rel="prefetch" href="/assets/linkedlist-algorithm-problems.html.9db6a817.js"><link rel="prefetch" href="/assets/string-algorithm-problems.html.dd5b5a9d.js"><link rel="prefetch" href="/assets/the-sword-refers-to-offer.html.f3f1eb66.js"><link rel="prefetch" href="/assets/http_https.html.e4c1e646.js"><link rel="prefetch" href="/assets/http1.0_http1.1.html.78f2ce86.js"><link rel="prefetch" href="/assets/osi_tcp-ip-model.html.2de7eac0.js"><link rel="prefetch" href="/assets/other-network-questions.html.474b82fd.js"><link rel="prefetch" href="/assets/计算机网络内容总结.html.09f22934.js"><link rel="prefetch" href="/assets/bloom-filter.html.fd377e06.js"><link rel="prefetch" href="/assets/graph.html.9eabddcc.js"><link rel="prefetch" href="/assets/heap.html.2d7a5a9b.js"><link rel="prefetch" href="/assets/linear-data-structure.html.d68252fc.js"><link rel="prefetch" href="/assets/red-black-tree.html.d375553a.js"><link rel="prefetch" href="/assets/tree.html.cf9cbaa2.js"><link rel="prefetch" href="/assets/linux-intro.html.7f29d8e5.js"><link rel="prefetch" href="/assets/operating-system-basic-questions-01.html.204f9eed.js"><link rel="prefetch" href="/assets/shell-intro.html.7099ad8b.js"><link rel="prefetch" href="/assets/how-sql-executed-in-mysql.html.366e4db4.js"><link rel="prefetch" href="/assets/index-invalidation-caused-by-implicit-conversion.html.0e509999.js"><link rel="prefetch" href="/assets/innodb-implementation-of-mvcc.html.2862b60c.js"><link rel="prefetch" href="/assets/mysql-high-performance-optimization-specification-recommendations.html.b2474ec2.js"><link rel="prefetch" href="/assets/mysql-index.html.b4f2b724.js"><link rel="prefetch" href="/assets/mysql-logs.html.cb4d4684.js"><link rel="prefetch" href="/assets/mysql-questions-01.html.f09dec84.js"><link rel="prefetch" href="/assets/some-thoughts-on-database-storage-time.html.517f9c8e.js"><link rel="prefetch" href="/assets/transaction-isolation-level.html.ee7b43a8.js"><link rel="prefetch" href="/assets/3-commonly-used-cache-read-and-write-strategies.html.4e61d40d.js"><link rel="prefetch" href="/assets/cache-basics.html.b7b04f9e.js"><link rel="prefetch" href="/assets/redis-cluster.html.6ea71110.js"><link rel="prefetch" href="/assets/redis-memory-fragmentation.html.7785b35c.js"><link rel="prefetch" href="/assets/redis-questions-01.html.8e6b298b.js"><link rel="prefetch" href="/assets/kafka-questions-01.html.a17bb8bc.js"><link rel="prefetch" href="/assets/message-queue.html.b5212a15.js"><link rel="prefetch" href="/assets/rabbitmq-intro.html.8b9f74eb.js"><link rel="prefetch" href="/assets/rocketmq-intro.html.6cf01955.js"><link rel="prefetch" href="/assets/rocketmq-questions.html.535053d6.js"><link rel="prefetch" href="/assets/dubbo.html.bb2aa5bb.js"><link rel="prefetch" href="/assets/why-use-rpc.html.d2085c3f.js"><link rel="prefetch" href="/assets/cap_base-theorem.html.aabff7cc.js"><link rel="prefetch" href="/assets/gossip.html.2d4e902b.js"><link rel="prefetch" href="/assets/paxos-algorithm.html.a47bf98e.js"><link rel="prefetch" href="/assets/raft-algorithm.html.14d6c544.js"><link rel="prefetch" href="/assets/bigdecimal.html.28ab69a8.js"><link rel="prefetch" href="/assets/io.html.873e8200.js"><link rel="prefetch" href="/assets/java-basic-01.html.e27ea2f8.js"><link rel="prefetch" href="/assets/java-basic-02.html.f427c901.js"><link rel="prefetch" href="/assets/java-basic-03.html.d3926693.js"><link rel="prefetch" href="/assets/proxy.html.92ab3050.js"><link rel="prefetch" href="/assets/reflection.html.16b3d66b.js"><link rel="prefetch" href="/assets/serialization.html.dbad4a3a.js"><link rel="prefetch" href="/assets/why-there-only-value-passing-in-java.html.f658b65c.js"><link rel="prefetch" href="/assets/java-collection-precautions-for-use.html.6caa4ae5.js"><link rel="prefetch" href="/assets/java-collection-questions-01.html.26a24dea.js"><link rel="prefetch" href="/assets/java-collection-questions-02.html.43867a2b.js"><link rel="prefetch" href="/assets/aqs.html.95a41fa3.js"><link rel="prefetch" href="/assets/atomic-classes.html.2f10c11f.js"><link rel="prefetch" href="/assets/completablefuture-intro.html.4c97fae1.js"><link rel="prefetch" href="/assets/java-concurrent-collections.html.585fbe4b.js"><link rel="prefetch" href="/assets/java-concurrent-questions-01.html.6210ab74.js"><link rel="prefetch" href="/assets/java-concurrent-questions-02.html.d40cbd56.js"><link rel="prefetch" href="/assets/java-thread-pool-best-practices.html.1b007a54.js"><link rel="prefetch" href="/assets/java-thread-pool-summary.html.a5326c97.js"><link rel="prefetch" href="/assets/reentrantlock.html.3b435c70.js"><link rel="prefetch" href="/assets/threadlocal.html.52df7b3b.js"><link rel="prefetch" href="/assets/classloader.html.ef5e778d.js"><link rel="prefetch" href="/assets/java-jvm-questions-01.html.e05c2a8f.js"><link rel="prefetch" href="/assets/jvm-intro.html.a74aca72.js"><link rel="prefetch" href="/assets/jvm-parameters-intro.html.69056348.js"><link rel="prefetch" href="/assets/java10.html.25b31a3d.js"><link rel="prefetch" href="/assets/java11.html.11815e16.js"><link rel="prefetch" href="/assets/java12-13.html.53e9e62e.js"><link rel="prefetch" href="/assets/java14-15.html.fbc231f4.js"><link rel="prefetch" href="/assets/java8-common-new-features.html.cb27fd26.js"><link rel="prefetch" href="/assets/java8-tutorial-translate.html.3bd56699.js"><link rel="prefetch" href="/assets/java9.html.0b5e8022.js"><link rel="prefetch" href="/assets/naming.html.5d93cd63.js"><link rel="prefetch" href="/assets/refactoring.html.9d5d9701.js"><link rel="prefetch" href="/assets/RESTfulAPI.html.47972874.js"><link rel="prefetch" href="/assets/netty.html.d07112f5.js"><link rel="prefetch" href="/assets/advantages_disadvantages-of-jwt.html.cc868daa.js"><link rel="prefetch" href="/assets/basis-of-authority-certification.html.f7a4a7ea.js"><link rel="prefetch" href="/assets/data-desensitization.html.45aebe96.js"><link rel="prefetch" href="/assets/jwt-intro.html.d1668099.js"><link rel="prefetch" href="/assets/sentive-words-filter.html.13060ac4.js"><link rel="prefetch" href="/assets/sso-intro.html.de08967b.js"><link rel="prefetch" href="/assets/md-editor.html.4ce6887e.js"><link rel="prefetch" href="/assets/plugin-tools.html.857276c6.js"><link rel="prefetch" href="/assets/zookeeper-in-action.html.1f29429b.js"><link rel="prefetch" href="/assets/zookeeper-intro.html.5d4503cf.js"><link rel="prefetch" href="/assets/zookeeper-plus.html.a94c7f9f.js"><link rel="prefetch" href="/assets/arraylist-source-code.html.a234e69c.js"><link rel="prefetch" href="/assets/concurrent-hash-map-source-code.html.c8544a8e.js"><link rel="prefetch" href="/assets/hashmap-source-code.html.27eabd8d.js"><link rel="prefetch" href="/assets/page.html.5a76bdd1.js"><link rel="prefetch" href="/assets/page.html.cbabda5c.js"><link rel="prefetch" href="/assets/page.html.40626177.js"><link rel="prefetch" href="/assets/page.html.52073a4a.js"><link rel="prefetch" href="/assets/page.html.0cb78876.js"><link rel="prefetch" href="/assets/mybatis-interview.html.813d2199.js"><link rel="prefetch" href="/assets/spring-boot-auto-assembly-principles.html.eb9783e1.js"><link rel="prefetch" href="/assets/spring-common-annotations.html.a7564ecc.js"><link rel="prefetch" href="/assets/spring-design-patterns-summary.html.22c2bb09.js"><link rel="prefetch" href="/assets/spring-knowledge-and-questions-summary.html.a01d437b.js"><link rel="prefetch" href="/assets/spring-transaction.html.57c87f7b.js"><link rel="prefetch" href="/assets/springcloud-intro.html.18d06837.js"><link rel="prefetch" href="/assets/git-intro.html.9085b2a9.js"><link rel="prefetch" href="/assets/github-tips.html.38846baf.js"><link rel="prefetch" href="/assets/404.html.e0b0a01e.js"><link rel="prefetch" href="/assets/index.html.c1a77ebe.js"><link rel="prefetch" href="/assets/index.html.79779236.js"><link rel="prefetch" href="/assets/index.html.c75bd714.js"><link rel="prefetch" href="/assets/index.html.bd2e2eca.js"><link rel="prefetch" href="/assets/index.html.0500b22a.js"><link rel="prefetch" href="/assets/index.html.e5ef0c99.js"><link rel="prefetch" href="/assets/index.html.7dd53cd7.js"><link rel="prefetch" href="/assets/index.html.b3a29827.js"><link rel="prefetch" href="/assets/index.html.c3bf5ca9.js"><link rel="prefetch" href="/assets/index.html.d5d68b07.js"><link rel="prefetch" href="/assets/index.html.187c41f2.js"><link rel="prefetch" href="/assets/index.html.45316c81.js"><link rel="prefetch" href="/assets/index.html.439c7396.js"><link rel="prefetch" href="/assets/index.html.b3c1f666.js"><link rel="prefetch" href="/assets/index.html.64205451.js"><link rel="prefetch" href="/assets/index.html.7805f1d4.js"><link rel="prefetch" href="/assets/index.html.2f1e4983.js"><link rel="prefetch" href="/assets/index.html.629d4310.js"><link rel="prefetch" href="/assets/index.html.a465a3f6.js"><link rel="prefetch" href="/assets/index.html.25fb4a72.js"><link rel="prefetch" href="/assets/index.html.e8b544a7.js"><link rel="prefetch" href="/assets/index.html.a9ef7b24.js"><link rel="prefetch" href="/assets/index.html.37fc2e83.js"><link rel="prefetch" href="/assets/index.html.a1267f38.js"><link rel="prefetch" href="/assets/index.html.a57a03e9.js"><link rel="prefetch" href="/assets/index.html.de0a1f9c.js"><link rel="prefetch" href="/assets/index.html.7f377eba.js"><link rel="prefetch" href="/assets/index.html.4f49cd3b.js"><link rel="prefetch" href="/assets/index.html.2f1ed682.js"><link rel="prefetch" href="/assets/index.html.9041a696.js"><link rel="prefetch" href="/assets/index.html.0aedeb7e.js"><link rel="prefetch" href="/assets/index.html.4a12d8dc.js"><link rel="prefetch" href="/assets/index.html.0d6cd3bb.js"><link rel="prefetch" href="/assets/index.html.8f506dd4.js"><link rel="prefetch" href="/assets/index.html.412fef02.js"><link rel="prefetch" href="/assets/index.html.425e72c3.js"><link rel="prefetch" href="/assets/index.html.4a4e1b0f.js"><link rel="prefetch" href="/assets/index.html.7a0d4eca.js"><link rel="prefetch" href="/assets/index.html.fb14bb03.js"><link rel="prefetch" href="/assets/index.html.7daab107.js"><link rel="prefetch" href="/assets/home.html.656ff0f5.js"><link rel="prefetch" href="/assets/index.html.0f164d6c.js"><link rel="prefetch" href="/assets/slide.html.fdfdb4db.js"><link rel="prefetch" href="/assets/home.html.c25fb29a.js"><link rel="prefetch" href="/assets/home.html.b94c3488.js"><link rel="prefetch" href="/assets/home.html.be16e919.js"><link rel="prefetch" href="/assets/home.html.903788b2.js"><link rel="prefetch" href="/assets/interview-ready.html.83b2afcb.js"><link rel="prefetch" href="/assets/interview-recards.html.859d738d.js"><link rel="prefetch" href="/assets/devops.html.8c84954d.js"><link rel="prefetch" href="/assets/basis.html.ef87509d.js"><link rel="prefetch" href="/assets/character-set.html.ce2d7417.js"><link rel="prefetch" href="/assets/cluster.html.b54fb893.js"><link rel="prefetch" href="/assets/disaster-recovery_remote-live.html.79cafdec.js"><link rel="prefetch" href="/assets/fallback_circuit-breaker.html.9d01f054.js"><link rel="prefetch" href="/assets/high-availability-system-design.html.c29e464a.js"><link rel="prefetch" href="/assets/limit-request.html.367dca88.js"><link rel="prefetch" href="/assets/performance-test.html.7f45d8ff.js"><link rel="prefetch" href="/assets/timeout-and-retry.html.ee5dab9d.js"><link rel="prefetch" href="/assets/load-balancing.html.c74943ff.js"><link rel="prefetch" href="/assets/read-and-write-separation-and-library-subtable.html.c188a037.js"><link rel="prefetch" href="/assets/api-gateway.html.5c7f4bf2.js"><link rel="prefetch" href="/assets/distributed-id.html.cafca99c.js"><link rel="prefetch" href="/assets/distributed-transaction.html.1aa2ec8b.js"><link rel="prefetch" href="/assets/design-pattern.html.6cfed94d.js"><link rel="prefetch" href="/assets/J2EE基础知识.html.16391983.js"><link rel="prefetch" href="/assets/schedule-task.html.7df468da.js"><link rel="prefetch" href="/assets/system-design-questions.html.639bc63b.js"><link rel="prefetch" href="/assets/10-classical-sorting-algorithms.html.86a9b667.js"><link rel="prefetch" href="/assets/linkedlist-algorithm-problems.html.21ba67f1.js"><link rel="prefetch" href="/assets/string-algorithm-problems.html.7f4aafd3.js"><link rel="prefetch" href="/assets/the-sword-refers-to-offer.html.7f702ced.js"><link rel="prefetch" href="/assets/http_https.html.511872ea.js"><link rel="prefetch" href="/assets/http1.0_http1.1.html.4105ab2f.js"><link rel="prefetch" href="/assets/osi_tcp-ip-model.html.0a280afc.js"><link rel="prefetch" href="/assets/other-network-questions.html.1b9a9f56.js"><link rel="prefetch" href="/assets/计算机网络内容总结.html.e115512b.js"><link rel="prefetch" href="/assets/bloom-filter.html.9a54b925.js"><link rel="prefetch" href="/assets/graph.html.eb277216.js"><link rel="prefetch" href="/assets/heap.html.239d244d.js"><link rel="prefetch" href="/assets/linear-data-structure.html.4e0cf1ec.js"><link rel="prefetch" href="/assets/red-black-tree.html.a6ea6255.js"><link rel="prefetch" href="/assets/tree.html.9056c902.js"><link rel="prefetch" href="/assets/linux-intro.html.312069ca.js"><link rel="prefetch" href="/assets/operating-system-basic-questions-01.html.cf0fa6c7.js"><link rel="prefetch" href="/assets/shell-intro.html.3b00ebfb.js"><link rel="prefetch" href="/assets/how-sql-executed-in-mysql.html.8db37f09.js"><link rel="prefetch" href="/assets/index-invalidation-caused-by-implicit-conversion.html.a38acf43.js"><link rel="prefetch" href="/assets/innodb-implementation-of-mvcc.html.721048b1.js"><link rel="prefetch" href="/assets/mysql-high-performance-optimization-specification-recommendations.html.0e0a2f88.js"><link rel="prefetch" href="/assets/mysql-index.html.8b0e96d8.js"><link rel="prefetch" href="/assets/mysql-logs.html.bdc2f783.js"><link rel="prefetch" href="/assets/mysql-questions-01.html.ff9728fe.js"><link rel="prefetch" href="/assets/some-thoughts-on-database-storage-time.html.d34e988c.js"><link rel="prefetch" href="/assets/transaction-isolation-level.html.17f0ae82.js"><link rel="prefetch" href="/assets/3-commonly-used-cache-read-and-write-strategies.html.d0c8314c.js"><link rel="prefetch" href="/assets/cache-basics.html.5dad5a14.js"><link rel="prefetch" href="/assets/redis-cluster.html.5ae82ccf.js"><link rel="prefetch" href="/assets/redis-memory-fragmentation.html.30c77704.js"><link rel="prefetch" href="/assets/redis-questions-01.html.efb2aea8.js"><link rel="prefetch" href="/assets/kafka-questions-01.html.232d112c.js"><link rel="prefetch" href="/assets/message-queue.html.dfdcade2.js"><link rel="prefetch" href="/assets/rabbitmq-intro.html.0fb8597d.js"><link rel="prefetch" href="/assets/rocketmq-intro.html.8aa29b86.js"><link rel="prefetch" href="/assets/rocketmq-questions.html.0cdc3478.js"><link rel="prefetch" href="/assets/dubbo.html.b83dd40d.js"><link rel="prefetch" href="/assets/why-use-rpc.html.400f11d9.js"><link rel="prefetch" href="/assets/cap_base-theorem.html.62244274.js"><link rel="prefetch" href="/assets/gossip.html.40cb9791.js"><link rel="prefetch" href="/assets/paxos-algorithm.html.55df48a6.js"><link rel="prefetch" href="/assets/raft-algorithm.html.479a9149.js"><link rel="prefetch" href="/assets/bigdecimal.html.563fcd7b.js"><link rel="prefetch" href="/assets/io.html.59a4de38.js"><link rel="prefetch" href="/assets/java-basic-01.html.b1ba3f9c.js"><link rel="prefetch" href="/assets/java-basic-02.html.137b60c2.js"><link rel="prefetch" href="/assets/java-basic-03.html.692ea7e3.js"><link rel="prefetch" href="/assets/proxy.html.5d79b710.js"><link rel="prefetch" href="/assets/reflection.html.ce960965.js"><link rel="prefetch" href="/assets/serialization.html.7e5dfbf5.js"><link rel="prefetch" href="/assets/why-there-only-value-passing-in-java.html.39998d98.js"><link rel="prefetch" href="/assets/java-collection-precautions-for-use.html.ede04f83.js"><link rel="prefetch" href="/assets/java-collection-questions-01.html.a0c205d5.js"><link rel="prefetch" href="/assets/java-collection-questions-02.html.be6a17f3.js"><link rel="prefetch" href="/assets/aqs.html.d4277036.js"><link rel="prefetch" href="/assets/atomic-classes.html.4169f533.js"><link rel="prefetch" href="/assets/completablefuture-intro.html.82ecdb4e.js"><link rel="prefetch" href="/assets/java-concurrent-collections.html.16a1f1b7.js"><link rel="prefetch" href="/assets/java-concurrent-questions-01.html.5df76ba2.js"><link rel="prefetch" href="/assets/java-concurrent-questions-02.html.5b4a7c7c.js"><link rel="prefetch" href="/assets/java-thread-pool-best-practices.html.9ece787d.js"><link rel="prefetch" href="/assets/java-thread-pool-summary.html.22c25547.js"><link rel="prefetch" href="/assets/reentrantlock.html.66a06b21.js"><link rel="prefetch" href="/assets/threadlocal.html.24b7b6ab.js"><link rel="prefetch" href="/assets/classloader.html.a2f390cb.js"><link rel="prefetch" href="/assets/java-jvm-questions-01.html.154791fa.js"><link rel="prefetch" href="/assets/jvm-intro.html.21a2b258.js"><link rel="prefetch" href="/assets/jvm-parameters-intro.html.99411cc6.js"><link rel="prefetch" href="/assets/java10.html.fbcfed35.js"><link rel="prefetch" href="/assets/java11.html.4ee5ca43.js"><link rel="prefetch" href="/assets/java12-13.html.69b2596e.js"><link rel="prefetch" href="/assets/java14-15.html.6a0fdaa1.js"><link rel="prefetch" href="/assets/java8-common-new-features.html.1daad045.js"><link rel="prefetch" href="/assets/java8-tutorial-translate.html.de75fd49.js"><link rel="prefetch" href="/assets/java9.html.b4228db4.js"><link rel="prefetch" href="/assets/naming.html.455ad4f0.js"><link rel="prefetch" href="/assets/refactoring.html.d51b4b8a.js"><link rel="prefetch" href="/assets/RESTfulAPI.html.24da4bec.js"><link rel="prefetch" href="/assets/netty.html.bf435f13.js"><link rel="prefetch" href="/assets/advantages_disadvantages-of-jwt.html.35d0311a.js"><link rel="prefetch" href="/assets/basis-of-authority-certification.html.ddd28a15.js"><link rel="prefetch" href="/assets/data-desensitization.html.798834c9.js"><link rel="prefetch" href="/assets/jwt-intro.html.0001b26e.js"><link rel="prefetch" href="/assets/sentive-words-filter.html.268b85e5.js"><link rel="prefetch" href="/assets/sso-intro.html.ed407cbe.js"><link rel="prefetch" href="/assets/md-editor.html.e0c74723.js"><link rel="prefetch" href="/assets/plugin-tools.html.38f04f74.js"><link rel="prefetch" href="/assets/zookeeper-in-action.html.4272fe3f.js"><link rel="prefetch" href="/assets/zookeeper-intro.html.6056f1de.js"><link rel="prefetch" href="/assets/zookeeper-plus.html.e85fb898.js"><link rel="prefetch" href="/assets/arraylist-source-code.html.7d57fd7c.js"><link rel="prefetch" href="/assets/concurrent-hash-map-source-code.html.e1731b90.js"><link rel="prefetch" href="/assets/hashmap-source-code.html.f17cd2a9.js"><link rel="prefetch" href="/assets/page.html.cc186c4d.js"><link rel="prefetch" href="/assets/page.html.dae98c35.js"><link rel="prefetch" href="/assets/page.html.f3e420fd.js"><link rel="prefetch" href="/assets/page.html.e9a039b1.js"><link rel="prefetch" href="/assets/page.html.e598770c.js"><link rel="prefetch" href="/assets/mybatis-interview.html.23e87437.js"><link rel="prefetch" href="/assets/spring-boot-auto-assembly-principles.html.dae52fe6.js"><link rel="prefetch" href="/assets/spring-common-annotations.html.f64c0502.js"><link rel="prefetch" href="/assets/spring-design-patterns-summary.html.54a6c768.js"><link rel="prefetch" href="/assets/spring-knowledge-and-questions-summary.html.7d20197b.js"><link rel="prefetch" href="/assets/spring-transaction.html.dee12521.js"><link rel="prefetch" href="/assets/springcloud-intro.html.524d4caa.js"><link rel="prefetch" href="/assets/git-intro.html.09234b88.js"><link rel="prefetch" href="/assets/github-tips.html.5b4a57b7.js"><link rel="prefetch" href="/assets/404.html.4c8fd14d.js"><link rel="prefetch" href="/assets/index.html.72e74c9b.js"><link rel="prefetch" href="/assets/index.html.e9e79844.js"><link rel="prefetch" href="/assets/index.html.f5d87103.js"><link rel="prefetch" href="/assets/index.html.33466ea2.js"><link rel="prefetch" href="/assets/index.html.c8834b6a.js"><link rel="prefetch" href="/assets/index.html.e9a372db.js"><link rel="prefetch" href="/assets/index.html.184e8dd8.js"><link rel="prefetch" href="/assets/index.html.10157e3d.js"><link rel="prefetch" href="/assets/index.html.630f70da.js"><link rel="prefetch" href="/assets/index.html.0f2e5963.js"><link rel="prefetch" href="/assets/index.html.d4b8b7a3.js"><link rel="prefetch" href="/assets/index.html.4c4f3652.js"><link rel="prefetch" href="/assets/index.html.c3187d04.js"><link rel="prefetch" href="/assets/index.html.e2e56ff2.js"><link rel="prefetch" href="/assets/index.html.7a78eb7f.js"><link rel="prefetch" href="/assets/index.html.efd0d1f1.js"><link rel="prefetch" href="/assets/index.html.27ad8a8d.js"><link rel="prefetch" href="/assets/index.html.8b5a6f52.js"><link rel="prefetch" href="/assets/index.html.bf7635ac.js"><link rel="prefetch" href="/assets/index.html.e8578118.js"><link rel="prefetch" href="/assets/index.html.d7593bc7.js"><link rel="prefetch" href="/assets/index.html.203ad5e0.js"><link rel="prefetch" href="/assets/index.html.d91b81a2.js"><link rel="prefetch" href="/assets/index.html.1c641672.js"><link rel="prefetch" href="/assets/index.html.4a19f752.js"><link rel="prefetch" href="/assets/index.html.8f5c34ba.js"><link rel="prefetch" href="/assets/index.html.42598d41.js"><link rel="prefetch" href="/assets/index.html.c4caf902.js"><link rel="prefetch" href="/assets/index.html.750d0024.js"><link rel="prefetch" href="/assets/index.html.298c40b0.js"><link rel="prefetch" href="/assets/index.html.7a73e671.js"><link rel="prefetch" href="/assets/index.html.c5e67cf3.js"><link rel="prefetch" href="/assets/index.html.c110b525.js"><link rel="prefetch" href="/assets/index.html.d5ffe0ac.js"><link rel="prefetch" href="/assets/index.html.c73fd22e.js"><link rel="prefetch" href="/assets/index.html.fbd62287.js"><link rel="prefetch" href="/assets/index.html.e770e4d4.js"><link rel="prefetch" href="/assets/index.html.1aa47a29.js"><link rel="prefetch" href="/assets/index.html.1381b488.js"><link rel="prefetch" href="/assets/index.html.d331ad29.js"><link rel="prefetch" href="/assets/404.94498c0a.js"><link rel="prefetch" href="/assets/Layout.8be6677c.js"><link rel="prefetch" href="/assets/Slide.90db6d20.js"><link rel="prefetch" href="/assets/Blog.7be52bbb.js"><link rel="prefetch" href="/assets/auto.esm.36809f22.js"><link rel="prefetch" href="/assets/index.daae04bf.js"><link rel="prefetch" href="/assets/index.1842ee54.js"><link rel="prefetch" href="/assets/mermaid.esm.min.d8b76e20.js"><link rel="prefetch" href="/assets/highlight.esm.d982e650.js"><link rel="prefetch" href="/assets/markdown.esm.832a189d.js"><link rel="prefetch" href="/assets/math.esm.a3f84b6f.js"><link rel="prefetch" href="/assets/notes.esm.3c361cb7.js"><link rel="prefetch" href="/assets/reveal.esm.b96f05d8.js"><link rel="prefetch" href="/assets/search.esm.80da4a02.js"><link rel="prefetch" href="/assets/zoom.esm.8514a202.js"><link rel="prefetch" href="/assets/photoswipe.esm.92018b73.js">
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="skip-link sr-only">Skip to content</a><!--]--><div class="theme-container has-toc"><!--[--><!--[--><header class="navbar"><div class="navbar-left"><button class="toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!----><a href="/" class="brand"><img class="logo" src="/logo.png" alt="EzFri"><!----><span class="site-name hide-in-pad">EzFri</span></a><!----></div><div class="navbar-center"><!----><nav class="nav-links"><div class="nav-item hide-in-mobile"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="知识库"><span class="title"><span class="icon iconfont icon-knowledge" style=""></span>知识库</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a href="/RD/home.html" class="nav-link" aria-label="后端"><span class="icon iconfont icon-houduankaifa" style=""></span>后端<!----></a></li><li class="dropdown-item"><a href="/FE/home.html" class="nav-link" aria-label="前端"><span class="icon iconfont icon-qianduankaifa" style=""></span>前端<!----></a></li><li class="dropdown-item"><a href="/OP/home.html" class="nav-link" aria-label="运维"><span class="icon iconfont icon-yunwei" style=""></span>运维<!----></a></li></ul></button></div></div><div class="nav-item hide-in-mobile"><a href="/extend/home/" class="nav-link" aria-label="人生如酒"><span class="icon iconfont icon-jiushuihongjiuhongjiubei" style=""></span>人生如酒<!----></a></div></nav><!----></div><div class="navbar-right"><!----><!----><div class="nav-item"><a class="repo-link" href="https://github.com/heplex/EzfriDocs" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="icon github-icon" viewbox="0 0 1024 1024" fill="currentColor" aria-label="github icon" style="width:1.25rem;height:1.25rem;vertical-align:middle;"><path d="M511.957 21.333C241.024 21.333 21.333 240.981 21.333 512c0 216.832 140.544 400.725 335.574 465.664 24.49 4.395 32.256-10.07 32.256-23.083 0-11.69.256-44.245 0-85.205-136.448 29.61-164.736-64.64-164.736-64.64-22.315-56.704-54.4-71.765-54.4-71.765-44.587-30.464 3.285-29.824 3.285-29.824 49.195 3.413 75.179 50.517 75.179 50.517 43.776 75.008 114.816 53.333 142.762 40.79 4.523-31.66 17.152-53.377 31.19-65.537-108.971-12.458-223.488-54.485-223.488-242.602 0-53.547 19.114-97.323 50.517-131.67-5.035-12.33-21.93-62.293 4.779-129.834 0 0 41.258-13.184 134.912 50.346a469.803 469.803 0 0 1 122.88-16.554c41.642.213 83.626 5.632 122.88 16.554 93.653-63.488 134.784-50.346 134.784-50.346 26.752 67.541 9.898 117.504 4.864 129.834 31.402 34.347 50.474 78.123 50.474 131.67 0 188.586-114.73 230.016-224.042 242.09 17.578 15.232 33.578 44.672 33.578 90.454v135.85c0 13.142 7.936 27.606 32.854 22.87C862.25 912.597 1002.667 728.747 1002.667 512c0-271.019-219.648-490.667-490.71-490.667z"></path></svg></a></div><div class="nav-item hide-in-mobile"><button id="appearance-switch"><svg xmlns="http://www.w3.org/2000/svg" class="icon auto-icon" viewbox="0 0 1024 1024" fill="currentColor" aria-label="auto icon" style="display:block;"><path d="M512 992C246.92 992 32 777.08 32 512S246.92 32 512 32s480 214.92 480 480-214.92 480-480 480zm0-840c-198.78 0-360 161.22-360 360 0 198.84 161.22 360 360 360s360-161.16 360-360c0-198.78-161.22-360-360-360zm0 660V212c165.72 0 300 134.34 300 300 0 165.72-134.28 300-300 300z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon dark-icon" viewbox="0 0 1024 1024" fill="currentColor" aria-label="dark icon" style="display:none;"><path d="M524.8 938.667h-4.267a439.893 439.893 0 0 1-313.173-134.4 446.293 446.293 0 0 1-11.093-597.334A432.213 432.213 0 0 1 366.933 90.027a42.667 42.667 0 0 1 45.227 9.386 42.667 42.667 0 0 1 10.24 42.667 358.4 358.4 0 0 0 82.773 375.893 361.387 361.387 0 0 0 376.747 82.774 42.667 42.667 0 0 1 54.187 55.04 433.493 433.493 0 0 1-99.84 154.88 438.613 438.613 0 0 1-311.467 128z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon light-icon" viewbox="0 0 1024 1024" fill="currentColor" aria-label="light icon" style="display:none;"><path d="M952 552h-80a40 40 0 0 1 0-80h80a40 40 0 0 1 0 80zM801.88 280.08a41 41 0 0 1-57.96-57.96l57.96-58a41.04 41.04 0 0 1 58 58l-58 57.96zM512 752a240 240 0 1 1 0-480 240 240 0 0 1 0 480zm0-560a40 40 0 0 1-40-40V72a40 40 0 0 1 80 0v80a40 40 0 0 1-40 40zm-289.88 88.08-58-57.96a41.04 41.04 0 0 1 58-58l57.96 58a41 41 0 0 1-57.96 57.96zM192 512a40 40 0 0 1-40 40H72a40 40 0 0 1 0-80h80a40 40 0 0 1 40 40zm30.12 231.92a41 41 0 0 1 57.96 57.96l-57.96 58a41.04 41.04 0 0 1-58-58l58-57.96zM512 832a40 40 0 0 1 40 40v80a40 40 0 0 1-80 0v-80a40 40 0 0 1 40-40zm289.88-88.08 58 57.96a41.04 41.04 0 0 1-58 58l-57.96-58a41 41 0 0 1 57.96-57.96z"></path></svg></button></div><form class="search-box" role="search"><input type="search" placeholder="Search" autocomplete="off" spellcheck="false" value><!----></form><!----><button class="toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span class="button-container"><span class="button-top"></span><span class="button-middle"></span><span class="button-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow left"></span></div><aside class="sidebar"><!--[--><!----><!--]--><ul class="sidebar-links"><li><!--[--><section class="sidebar-group"><button class="sidebar-heading clickable"><span class="icon iconfont icon-java" style=""></span><span class="title">Java</span><span class="arrow right"></span></button><!----></section><!--]--></li><li><!--[--><section class="sidebar-group"><button class="sidebar-heading clickable"><span class="icon iconfont icon-computer" style=""></span><span class="title">计算机基础</span><span class="arrow right"></span></button><!----></section><!--]--></li><li><!--[--><section class="sidebar-group"><button class="sidebar-heading clickable active"><span class="icon iconfont icon-database" style=""></span><span class="title">数据库</span><span class="arrow down"></span></button><ul class="sidebar-links"><li><!--[--><section class="sidebar-group"><button class="sidebar-heading clickable"><span class="icon iconfont icon-basic" style=""></span><span class="title">基础</span><span class="arrow right"></span></button><!----></section><!--]--></li><li><!--[--><section class="sidebar-group"><button class="sidebar-heading clickable active"><span class="icon iconfont icon-mysql" style=""></span><span class="title">MySQL</span><span class="arrow down"></span></button><ul class="sidebar-links"><li><!--[--><a href="/RD/database/mysql/mysql-questions-01.html" class="nav-link sidebar-link sidebar-page" aria-label="MySQL知识点&amp;面试题总结"><!---->MySQL知识点&amp;面试题总结<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html" class="router-link-active router-link-exact-active nav-link active sidebar-link sidebar-page active" aria-label="一千行 MySQL 学习笔记"><!---->一千行 MySQL 学习笔记<!----></a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#基本操作" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="基本操作"><!---->基本操作<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#数据库操作" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="数据库操作"><!---->数据库操作<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#表的操作" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="表的操作"><!---->表的操作<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#数据操作" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="数据操作"><!---->数据操作<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#字符集编码" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="字符集编码"><!---->字符集编码<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#数据类型-列类型" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="数据类型(列类型)"><!---->数据类型(列类型)<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#列属性-列约束" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="列属性(列约束)"><!---->列属性(列约束)<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#建表规范" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="建表规范"><!---->建表规范<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#select" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="SELECT"><!---->SELECT<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#union" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="UNION"><!---->UNION<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#子查询" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="子查询"><!---->子查询<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#连接查询-join" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="连接查询(join)"><!---->连接查询(join)<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#truncate" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="TRUNCATE"><!---->TRUNCATE<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#备份与还原" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="备份与还原"><!---->备份与还原<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#视图" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="视图"><!---->视图<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#事务-transaction" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="事务(transaction)"><!---->事务(transaction)<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#锁表" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="锁表"><!---->锁表<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#触发器" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="触发器"><!---->触发器<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#sql编程" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="SQL编程"><!---->SQL编程<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#存储过程" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="存储过程"><!---->存储过程<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#用户和权限管理" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="用户和权限管理"><!---->用户和权限管理<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#表维护" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="表维护"><!---->表维护<!----></a><ul class="sidebar-sub-headers"></ul></li><li class="sidebar-sub-header"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#杂项" class="router-link-active router-link-exact-active nav-link sidebar-link heading" aria-label="杂项"><!---->杂项<!----></a><ul class="sidebar-sub-headers"></ul></li></ul><!--]--></li><li><!--[--><a href="/RD/database/mysql/mysql-high-performance-optimization-specification-recommendations.html" class="nav-link sidebar-link sidebar-page" aria-label="MySQL高性能优化规范建议"><!---->MySQL高性能优化规范建议<!----></a><ul class="sidebar-sub-headers"></ul><!--]--></li><li><!--[--><section class="sidebar-group"><button class="sidebar-heading clickable"><span class="icon iconfont icon-star" style=""></span><span class="title">重要知识点</span><span class="arrow right"></span></button><!----></section><!--]--></li></ul></section><!--]--></li><li><!--[--><section class="sidebar-group"><button class="sidebar-heading clickable"><span class="icon iconfont icon-redis" style=""></span><span class="title">Redis</span><span class="arrow right"></span></button><!----></section><!--]--></li></ul></section><!--]--></li><li><!--[--><section class="sidebar-group"><button class="sidebar-heading clickable"><span class="icon iconfont icon-framework" style=""></span><span class="title">常用框架</span><span class="arrow right"></span></button><!----></section><!--]--></li><li><!--[--><section class="sidebar-group"><button class="sidebar-heading clickable"><span class="icon iconfont icon-xitongsheji" style=""></span><span class="title">系统设计</span><span class="arrow right"></span></button><!----></section><!--]--></li><li><!--[--><section class="sidebar-group"><button class="sidebar-heading clickable"><span class="icon iconfont icon-fenbushi" style=""></span><span class="title">分布式</span><span class="arrow right"></span></button><!----></section><!--]--></li><li><!--[--><section class="sidebar-group"><button class="sidebar-heading clickable"><span class="icon iconfont icon-et-performance" style=""></span><span class="title">高性能</span><span class="arrow right"></span></button><!----></section><!--]--></li><li><!--[--><section class="sidebar-group"><button class="sidebar-heading clickable"><span class="icon iconfont icon-highavailable" style=""></span><span class="title">高可用</span><span class="arrow right"></span></button><!----></section><!--]--></li><li><!--[--><section class="sidebar-group"><button class="sidebar-heading clickable"><span class="icon iconfont icon-tool" style=""></span><span class="title">工具</span><span class="arrow right"></span></button><!----></section><!--]--></li></ul><!--[--><!----><!--]--></aside><!--[--><main class="page" id="main-content"><!--[--><!----><nav class="breadcrumb disable"></nav><div class="page-title"><h1><!---->一千行 MySQL 学习笔记</h1><div class="page-info"><span class="author-info" aria-label="作者🖊" data-balloon-pos="down" localizeddate="2022年12月2日" isoriginal="false" pageview="false"><svg xmlns="http://www.w3.org/2000/svg" class="icon author-icon" viewbox="0 0 1024 1024" fill="currentColor" aria-label="author icon"><path d="M649.6 633.6c86.4-48 147.2-144 147.2-249.6 0-160-128-288-288-288s-288 128-288 288c0 108.8 57.6 201.6 147.2 249.6-121.6 48-214.4 153.6-240 288-3.2 9.6 0 19.2 6.4 25.6 3.2 9.6 12.8 12.8 22.4 12.8h704c9.6 0 19.2-3.2 25.6-12.8 6.4-6.4 9.6-16 6.4-25.6-25.6-134.4-121.6-240-243.2-288z"></path></svg><span><a class="author-item" href="https://www.ezfri.com" target="_blank" rel="noopener noreferrer">EzFri</a></span><span property="author" content="EzFri"></span></span><!----><span class="date-info" aria-label="写作日期📅" data-balloon-pos="down" isoriginal="false" pageview="false"><svg xmlns="http://www.w3.org/2000/svg" class="icon calendar-icon" viewbox="0 0 1024 1024" fill="currentColor" aria-label="calendar icon"><path d="M716.4 110.137c0-18.753-14.72-33.473-33.472-33.473-18.753 0-33.473 14.72-33.473 33.473v33.473h66.993v-33.473zm-334.87 0c0-18.753-14.72-33.473-33.473-33.473s-33.52 14.72-33.52 33.473v33.473h66.993v-33.473zm468.81 33.52H716.4v100.465c0 18.753-14.72 33.473-33.472 33.473a33.145 33.145 0 01-33.473-33.473V143.657H381.53v100.465c0 18.753-14.72 33.473-33.473 33.473a33.145 33.145 0 01-33.473-33.473V143.657H180.6A134.314 134.314 0 0046.66 277.595v535.756A134.314 134.314 0 00180.6 947.289h669.74a134.36 134.36 0 00133.94-133.938V277.595a134.314 134.314 0 00-133.94-133.938zm33.473 267.877H147.126a33.145 33.145 0 01-33.473-33.473c0-18.752 14.72-33.473 33.473-33.473h736.687c18.752 0 33.472 14.72 33.472 33.473a33.145 33.145 0 01-33.472 33.473z"></path></svg><span>2022年12月2日</span><meta property="datePublished" content="2022-12-02T13:59:58.000Z"></span><span class="category-info" aria-label="分类🌈" data-balloon-pos="down" localizeddate="2022年12月2日" isoriginal="false" pageview="false"><svg xmlns="http://www.w3.org/2000/svg" class="icon category-icon" viewbox="0 0 1024 1024" fill="currentColor" aria-label="category icon"><path d="M148.41 106.992h282.176c22.263 0 40.31 18.048 40.31 40.31V429.48c0 22.263-18.047 40.31-40.31 40.31H148.41c-22.263 0-40.311-18.047-40.311-40.31V147.302c0-22.263 18.048-40.31 40.311-40.31zM147.556 553.478H429.73c22.263 0 40.311 18.048 40.311 40.31v282.176c0 22.263-18.048 40.312-40.31 40.312H147.555c-22.263 0-40.311-18.049-40.311-40.312V593.79c0-22.263 18.048-40.311 40.31-40.311zM593.927 106.992h282.176c22.263 0 40.31 18.048 40.31 40.31V429.48c0 22.263-18.047 40.31-40.31 40.31H593.927c-22.263 0-40.311-18.047-40.311-40.31V147.302c0-22.263 18.048-40.31 40.31-40.31zM730.22 920.502H623.926c-40.925 0-74.22-33.388-74.22-74.425V623.992c0-41.038 33.387-74.424 74.425-74.424h222.085c41.038 0 74.424 33.226 74.424 74.067v114.233c0 10.244-8.304 18.548-18.547 18.548s-18.548-8.304-18.548-18.548V623.635c0-20.388-16.746-36.974-37.33-36.974H624.13c-20.585 0-37.331 16.747-37.331 37.33v222.086c0 20.585 16.654 37.331 37.126 37.331H730.22c10.243 0 18.547 8.304 18.547 18.547 0 10.244-8.304 18.547-18.547 18.547z"></path></svg><ul class="categories-wrapper"><li class="category category6 clickable" role="navigation">数据库</li><meta property="articleSection" content="数据库"></ul></span><span aria-label="标签🏷" data-balloon-pos="down" localizeddate="2022年12月2日" isoriginal="false" pageview="false"><svg xmlns="http://www.w3.org/2000/svg" class="icon tag-icon" viewbox="0 0 1024 1024" fill="currentColor" aria-label="tag icon"><path d="M939.902 458.563L910.17 144.567c-1.507-16.272-14.465-29.13-30.737-30.737L565.438 84.098h-.402c-3.215 0-5.726 1.005-7.634 2.913l-470.39 470.39a10.004 10.004 0 000 14.164l365.423 365.424c1.909 1.908 4.42 2.913 7.132 2.913s5.223-1.005 7.132-2.913l470.39-470.39c2.01-2.11 3.014-5.023 2.813-8.036zm-240.067-72.121c-35.458 0-64.286-28.828-64.286-64.286s28.828-64.285 64.286-64.285 64.286 28.828 64.286 64.285-28.829 64.286-64.286 64.286z"></path></svg><ul class="tags-wrapper"><li class="tag tag3 clickable" role="navigation">MySQL</li></ul><meta property="keywords" content="MySQL"></span><span class="reading-time-info" aria-label="阅读时间⌛" data-balloon-pos="down" localizeddate="2022年12月2日" isoriginal="false" pageview="false"><svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewbox="0 0 1024 1024" fill="currentColor" aria-label="timer icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path></svg><span>大约 33 分钟</span><meta property="timeRequired" content="PT33M"></span></div><hr></div><div class="toc-place-holder"><aside id="toc"><div class="toc-header">此页内容</div><div class="toc-wrapper"><ul class="toc-list"><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#基本操作" class="router-link-active router-link-exact-active toc-link level3">基本操作</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#数据库操作" class="router-link-active router-link-exact-active toc-link level3">数据库操作</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#表的操作" class="router-link-active router-link-exact-active toc-link level3">表的操作</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#数据操作" class="router-link-active router-link-exact-active toc-link level3">数据操作</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#字符集编码" class="router-link-active router-link-exact-active toc-link level3">字符集编码</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#数据类型-列类型" class="router-link-active router-link-exact-active toc-link level3">数据类型(列类型)</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#列属性-列约束" class="router-link-active router-link-exact-active toc-link level3">列属性(列约束)</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#建表规范" class="router-link-active router-link-exact-active toc-link level3">建表规范</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#select" class="router-link-active router-link-exact-active toc-link level3">SELECT</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#union" class="router-link-active router-link-exact-active toc-link level3">UNION</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#子查询" class="router-link-active router-link-exact-active toc-link level3">子查询</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#连接查询-join" class="router-link-active router-link-exact-active toc-link level3">连接查询(join)</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#truncate" class="router-link-active router-link-exact-active toc-link level3">TRUNCATE</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#备份与还原" class="router-link-active router-link-exact-active toc-link level3">备份与还原</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#视图" class="router-link-active router-link-exact-active toc-link level3">视图</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#事务-transaction" class="router-link-active router-link-exact-active toc-link level3">事务(transaction)</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#锁表" class="router-link-active router-link-exact-active toc-link level3">锁表</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#触发器" class="router-link-active router-link-exact-active toc-link level3">触发器</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#sql编程" class="router-link-active router-link-exact-active toc-link level3">SQL编程</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#存储过程" class="router-link-active router-link-exact-active toc-link level3">存储过程</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#用户和权限管理" class="router-link-active router-link-exact-active toc-link level3">用户和权限管理</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#表维护" class="router-link-active router-link-exact-active toc-link level3">表维护</a></li><!----><!--]--><!--[--><li class="toc-item"><a aria-current="page" href="/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.html#杂项" class="router-link-active router-link-exact-active toc-link level3">杂项</a></li><!----><!--]--></ul></div></aside></div><!----><div class="theme-hope-content"><blockquote><p>原文地址：<a href="https://shockerli.net/post/1000-line-mysql-note/" target="_blank" rel="noopener noreferrer">https://shockerli.net/post/1000-line-mysql-note/<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a> 作者：格物</p></blockquote><h3 id="基本操作" tabindex="-1"><a class="header-anchor" href="#基本操作" aria-hidden="true">#</a> 基本操作</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* Windows服务 */
+-- 启动MySQL
+    net start mysql
+-- 创建Windows服务
+    sc create mysql binPath= mysqld_bin_path(注意：等号与值之间有空格)
+/* 连接与断开服务器 */
+mysql -u 地址 -P 端口 -u 用户名 -p 密码
+SHOW PROCESSLIST -- 显示哪些线程正在运行
+SHOW VARIABLES -- 显示系统变量信息
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="数据库操作" tabindex="-1"><a class="header-anchor" href="#数据库操作" aria-hidden="true">#</a> 数据库操作</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* 数据库操作 */ ------------------
+-- 查看当前数据库
+    SELECT DATABASE();
+-- 显示当前时间、用户名、数据库版本
+    SELECT now(), user(), version();
+-- 创建库
+    CREATE DATABASE[ IF NOT EXISTS] 数据库名 数据库选项
+    数据库选项：
+        CHARACTER SET charset_name
+        COLLATE collation_name
+-- 查看已有库
+    SHOW DATABASES[ LIKE &#39;PATTERN&#39;]
+-- 查看当前库信息
+    SHOW CREATE DATABASE 数据库名
+-- 修改库的选项信息
+    ALTER DATABASE 库名 选项信息
+-- 删除库
+    DROP DATABASE[ IF EXISTS] 数据库名
+        同时删除该数据库相关的目录及其目录内容
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="表的操作" tabindex="-1"><a class="header-anchor" href="#表的操作" aria-hidden="true">#</a> 表的操作</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>-- 创建表
+    CREATE [TEMPORARY] TABLE[ IF NOT EXISTS] [库名.]表名 ( 表的结构定义 )[ 表选项]
+        每个字段必须有数据类型
+        最后一个字段后不能有逗号
+        TEMPORARY 临时表，会话结束时表自动消失
+        对于字段的定义：
+            字段名 数据类型 [NOT NULL | NULL] [DEFAULT default_value] [AUTO_INCREMENT] [UNIQUE [KEY] | [PRIMARY] KEY] [COMMENT &#39;string&#39;]
+-- 表选项
+    -- 字符集
+        CHARSET = charset_name
+        如果表没有设定，则使用数据库字符集
+    -- 存储引擎
+        ENGINE = engine_name
+        表在管理数据时采用的不同的数据结构，结构不同会导致处理方式、提供的特性操作等不同
+        常见的引擎：InnoDB MyISAM Memory/Heap BDB Merge Example CSV MaxDB Archive
+        不同的引擎在保存表的结构和数据时采用不同的方式
+        MyISAM表文件含义：.frm表定义，.MYD表数据，.MYI表索引
+        InnoDB表文件含义：.frm表定义，表空间数据和日志文件
+        SHOW ENGINES -- 显示存储引擎的状态信息
+        SHOW ENGINE 引擎名 {LOGS|STATUS} -- 显示存储引擎的日志或状态信息
+    -- 自增起始数
+    	AUTO_INCREMENT = 行数
+    -- 数据文件目录
+        DATA DIRECTORY = &#39;目录&#39;
+    -- 索引文件目录
+        INDEX DIRECTORY = &#39;目录&#39;
+    -- 表注释
+        COMMENT = &#39;string&#39;
+    -- 分区选项
+        PARTITION BY ... (详细见手册)
+-- 查看所有表
+    SHOW TABLES[ LIKE &#39;pattern&#39;]
+    SHOW TABLES FROM  库名
+-- 查看表结构
+    SHOW CREATE TABLE 表名 （信息更详细）
+    DESC 表名 / DESCRIBE 表名 / EXPLAIN 表名 / SHOW COLUMNS FROM 表名 [LIKE &#39;PATTERN&#39;]
+    SHOW TABLE STATUS [FROM db_name] [LIKE &#39;pattern&#39;]
+-- 修改表
+    -- 修改表本身的选项
+        ALTER TABLE 表名 表的选项
+        eg: ALTER TABLE 表名 ENGINE=MYISAM;
+    -- 对表进行重命名
+        RENAME TABLE 原表名 TO 新表名
+        RENAME TABLE 原表名 TO 库名.表名 （可将表移动到另一个数据库）
+        -- RENAME可以交换两个表名
+    -- 修改表的字段机构（13.1.2. ALTER TABLE语法）
+        ALTER TABLE 表名 操作名
+        -- 操作名
+            ADD[ COLUMN] 字段定义       -- 增加字段
+                AFTER 字段名          -- 表示增加在该字段名后面
+                FIRST               -- 表示增加在第一个
+            ADD PRIMARY KEY(字段名)   -- 创建主键
+            ADD UNIQUE [索引名] (字段名)-- 创建唯一索引
+            ADD INDEX [索引名] (字段名) -- 创建普通索引
+            DROP[ COLUMN] 字段名      -- 删除字段
+            MODIFY[ COLUMN] 字段名 字段属性     -- 支持对字段属性进行修改，不能修改字段名(所有原有属性也需写上)
+            CHANGE[ COLUMN] 原字段名 新字段名 字段属性      -- 支持对字段名修改
+            DROP PRIMARY KEY    -- 删除主键(删除主键前需删除其AUTO_INCREMENT属性)
+            DROP INDEX 索引名 -- 删除索引
+            DROP FOREIGN KEY 外键    -- 删除外键
+-- 删除表
+    DROP TABLE[ IF EXISTS] 表名 ...
+-- 清空表数据
+    TRUNCATE [TABLE] 表名
+-- 复制表结构
+    CREATE TABLE 表名 LIKE 要复制的表名
+-- 复制表结构和数据
+    CREATE TABLE 表名 [AS] SELECT * FROM 要复制的表名
+-- 检查表是否有错误
+    CHECK TABLE tbl_name [, tbl_name] ... [option] ...
+-- 优化表
+    OPTIMIZE [LOCAL | NO_WRITE_TO_BINLOG] TABLE tbl_name [, tbl_name] ...
+-- 修复表
+    REPAIR [LOCAL | NO_WRITE_TO_BINLOG] TABLE tbl_name [, tbl_name] ... [QUICK] [EXTENDED] [USE_FRM]
+-- 分析表
+    ANALYZE [LOCAL | NO_WRITE_TO_BINLOG] TABLE tbl_name [, tbl_name] ...
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="数据操作" tabindex="-1"><a class="header-anchor" href="#数据操作" aria-hidden="true">#</a> 数据操作</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* 数据操作 */ ------------------
+-- 增
+    INSERT [INTO] 表名 [(字段列表)] VALUES (值列表)[, (值列表), ...]
+        -- 如果要插入的值列表包含所有字段并且顺序一致，则可以省略字段列表。
+        -- 可同时插入多条数据记录！
+        REPLACE 与 INSERT 完全一样，可互换。
+    INSERT [INTO] 表名 SET 字段名=值[, 字段名=值, ...]
+-- 查
+    SELECT 字段列表 FROM 表名[ 其他子句]
+        -- 可来自多个表的多个字段
+        -- 其他子句可以不使用
+        -- 字段列表可以用*代替，表示所有字段
+-- 删
+    DELETE FROM 表名[ 删除条件子句]
+        没有条件子句，则会删除全部
+-- 改
+    UPDATE 表名 SET 字段名=新值[, 字段名=新值] [更新条件]
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="字符集编码" tabindex="-1"><a class="header-anchor" href="#字符集编码" aria-hidden="true">#</a> 字符集编码</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* 字符集编码 */ ------------------
+-- MySQL、数据库、表、字段均可设置编码
+-- 数据编码与客户端编码不需一致
+SHOW VARIABLES LIKE &#39;character_set_%&#39;   -- 查看所有字符集编码项
+    character_set_client        客户端向服务器发送数据时使用的编码
+    character_set_results       服务器端将结果返回给客户端所使用的编码
+    character_set_connection    连接层编码
+SET 变量名 = 变量值
+    SET character_set_client = gbk;
+    SET character_set_results = gbk;
+    SET character_set_connection = gbk;
+SET NAMES GBK;  -- 相当于完成以上三个设置
+-- 校对集
+    校对集用以排序
+    SHOW CHARACTER SET [LIKE &#39;pattern&#39;]/SHOW CHARSET [LIKE &#39;pattern&#39;]   查看所有字符集
+    SHOW COLLATION [LIKE &#39;pattern&#39;]     查看所有校对集
+    CHARSET 字符集编码     设置字符集编码
+    COLLATE 校对集编码     设置校对集编码
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="数据类型-列类型" tabindex="-1"><a class="header-anchor" href="#数据类型-列类型" aria-hidden="true">#</a> 数据类型(列类型)</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* 数据类型（列类型） */ ------------------
+1. 数值类型
+-- a. 整型 ----------
+    类型         字节     范围（有符号位）
+    tinyint     1字节    -128 ~ 127      无符号位：0 ~ 255
+    smallint    2字节    -32768 ~ 32767
+    mediumint   3字节    -8388608 ~ 8388607
+    int         4字节
+    bigint      8字节
+    int(M)  M表示总位数
+    - 默认存在符号位，unsigned 属性修改
+    - 显示宽度，如果某个数不够定义字段时设置的位数，则前面以0补填，zerofill 属性修改
+        例：int(5)   插入一个数&#39;123&#39;，补填后为&#39;00123&#39;
+    - 在满足要求的情况下，越小越好。
+    - 1表示bool值真，0表示bool值假。MySQL没有布尔类型，通过整型0和1表示。常用tinyint(1)表示布尔型。
+-- b. 浮点型 ----------
+    类型             字节     范围
+    float(单精度)     4字节
+    double(双精度)    8字节
+    浮点型既支持符号位 unsigned 属性，也支持显示宽度 zerofill 属性。
+        不同于整型，前后均会补填0.
+    定义浮点型时，需指定总位数和小数位数。
+        float(M, D)     double(M, D)
+        M表示总位数，D表示小数位数。
+        M和D的大小会决定浮点数的范围。不同于整型的固定范围。
+        M既表示总位数（不包括小数点和正负号），也表示显示宽度（所有显示符号均包括）。
+        支持科学计数法表示。
+        浮点数表示近似值。
+-- c. 定点数 ----------
+    decimal -- 可变长度
+    decimal(M, D)   M也表示总位数，D表示小数位数。
+    保存一个精确的数值，不会发生数据的改变，不同于浮点数的四舍五入。
+    将浮点数转换为字符串来保存，每9位数字保存为4个字节。
+2. 字符串类型
+-- a. char, varchar ----------
+    char    定长字符串，速度快，但浪费空间
+    varchar 变长字符串，速度慢，但节省空间
+    M表示能存储的最大长度，此长度是字符数，非字节数。
+    不同的编码，所占用的空间不同。
+    char,最多255个字符，与编码无关。
+    varchar,最多65535字符，与编码有关。
+    一条有效记录最大不能超过65535个字节。
+        utf8 最大为21844个字符，gbk 最大为32766个字符，latin1 最大为65532个字符
+    varchar 是变长的，需要利用存储空间保存 varchar 的长度，如果数据小于255个字节，则采用一个字节来保存长度，反之需要两个字节来保存。
+    varchar 的最大有效长度由最大行大小和使用的字符集确定。
+    最大有效长度是65532字节，因为在varchar存字符串时，第一个字节是空的，不存在任何数据，然后还需两个字节来存放字符串的长度，所以有效长度是65535-1-2=65532字节。
+    例：若一个表定义为 CREATE TABLE tb(c1 int, c2 char(30), c3 varchar(N)) charset=utf8; 问N的最大值是多少？ 答：(65535-1-2-4-30*3)/3
+-- b. blob, text ----------
+    blob 二进制字符串（字节字符串）
+        tinyblob, blob, mediumblob, longblob
+    text 非二进制字符串（字符字符串）
+        tinytext, text, mediumtext, longtext
+    text 在定义时，不需要定义长度，也不会计算总长度。
+    text 类型在定义时，不可给default值
+-- c. binary, varbinary ----------
+    类似于char和varchar，用于保存二进制字符串，也就是保存字节字符串而非字符字符串。
+    char, varchar, text 对应 binary, varbinary, blob.
+3. 日期时间类型
+    一般用整型保存时间戳，因为PHP可以很方便的将时间戳进行格式化。
+    datetime    8字节    日期及时间     1000-01-01 00:00:00 到 9999-12-31 23:59:59
+    date        3字节    日期         1000-01-01 到 9999-12-31
+    timestamp   4字节    时间戳        19700101000000 到 2038-01-19 03:14:07
+    time        3字节    时间         -838:59:59 到 838:59:59
+    year        1字节    年份         1901 - 2155
+datetime    YYYY-MM-DD hh:mm:ss
+timestamp   YY-MM-DD hh:mm:ss
+            YYYYMMDDhhmmss
+            YYMMDDhhmmss
+            YYYYMMDDhhmmss
+            YYMMDDhhmmss
+date        YYYY-MM-DD
+            YY-MM-DD
+            YYYYMMDD
+            YYMMDD
+            YYYYMMDD
+            YYMMDD
+time        hh:mm:ss
+            hhmmss
+            hhmmss
+year        YYYY
+            YY
+            YYYY
+            YY
+4. 枚举和集合
+-- 枚举(enum) ----------
+enum(val1, val2, val3...)
+    在已知的值中进行单选。最大数量为65535.
+    枚举值在保存时，以2个字节的整型(smallint)保存。每个枚举值，按保存的位置顺序，从1开始逐一递增。
+    表现为字符串类型，存储却是整型。
+    NULL值的索引是NULL。
+    空字符串错误值的索引值是0。
+-- 集合（set） ----------
+set(val1, val2, val3...)
+    create table tab ( gender set(&#39;男&#39;, &#39;女&#39;, &#39;无&#39;) );
+    insert into tab values (&#39;男, 女&#39;);
+    最多可以有64个不同的成员。以bigint存储，共8个字节。采取位运算的形式。
+    当创建表时，SET成员值的尾部空格将自动被删除。
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="列属性-列约束" tabindex="-1"><a class="header-anchor" href="#列属性-列约束" aria-hidden="true">#</a> 列属性(列约束)</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* 列属性（列约束） */ ------------------
+1. PRIMARY 主键
+    - 能唯一标识记录的字段，可以作为主键。
+    - 一个表只能有一个主键。
+    - 主键具有唯一性。
+    - 声明字段时，用 primary key 标识。
+        也可以在字段列表之后声明
+            例：create table tab ( id int, stu varchar(10), primary key (id));
+    - 主键字段的值不能为null。
+    - 主键可以由多个字段共同组成。此时需要在字段列表后声明的方法。
+        例：create table tab ( id int, stu varchar(10), age int, primary key (stu, age));
+2. UNIQUE 唯一索引（唯一约束）
+    使得某字段的值也不能重复。
+3. NULL 约束
+    null不是数据类型，是列的一个属性。
+    表示当前列是否可以为null，表示什么都没有。
+    null, 允许为空。默认。
+    not null, 不允许为空。
+    insert into tab values (null, &#39;val&#39;);
+        -- 此时表示将第一个字段的值设为null, 取决于该字段是否允许为null
+4. DEFAULT 默认值属性
+    当前字段的默认值。
+    insert into tab values (default, &#39;val&#39;);    -- 此时表示强制使用默认值。
+    create table tab ( add_time timestamp default current_timestamp );
+        -- 表示将当前时间的时间戳设为默认值。
+        current_date, current_time
+5. AUTO_INCREMENT 自动增长约束
+    自动增长必须为索引（主键或unique）
+    只能存在一个字段为自动增长。
+    默认为1开始自动增长。可以通过表属性 auto_increment = x进行设置，或 alter table tbl auto_increment = x;
+6. COMMENT 注释
+    例：create table tab ( id int ) comment &#39;注释内容&#39;;
+7. FOREIGN KEY 外键约束
+    用于限制主表与从表数据完整性。
+    alter table t1 add constraint `t1_t2_fk` foreign key (t1_id) references t2(id);
+        -- 将表t1的t1_id外键关联到表t2的id字段。
+        -- 每个外键都有一个名字，可以通过 constraint 指定
+    存在外键的表，称之为从表（子表），外键指向的表，称之为主表（父表）。
+    作用：保持数据一致性，完整性，主要目的是控制存储在外键表（从表）中的数据。
+    MySQL中，可以对InnoDB引擎使用外键约束：
+    语法：
+    foreign key (外键字段） references 主表名 (关联字段) [主表记录删除时的动作] [主表记录更新时的动作]
+    此时需要检测一个从表的外键需要约束为主表的已存在的值。外键在没有关联的情况下，可以设置为null.前提是该外键列，没有not null。
+    可以不指定主表记录更改或更新时的动作，那么此时主表的操作被拒绝。
+    如果指定了 on update 或 on delete：在删除或更新时，有如下几个操作可以选择：
+    1. cascade，级联操作。主表数据被更新（主键值更新），从表也被更新（外键值更新）。主表记录被删除，从表相关记录也被删除。
+    2. set null，设置为null。主表数据被更新（主键值更新），从表的外键被设置为null。主表记录被删除，从表相关记录外键被设置成null。但注意，要求该外键列，没有not null属性约束。
+    3. restrict，拒绝父表删除和更新。
+    注意，外键只被InnoDB存储引擎所支持。其他引擎是不支持的。
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="建表规范" tabindex="-1"><a class="header-anchor" href="#建表规范" aria-hidden="true">#</a> 建表规范</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* 建表规范 */ ------------------
+    -- Normal Format, NF
+        - 每个表保存一个实体信息
+        - 每个具有一个ID字段作为主键
+        - ID主键 + 原子表
+    -- 1NF, 第一范式
+        字段不能再分，就满足第一范式。
+    -- 2NF, 第二范式
+        满足第一范式的前提下，不能出现部分依赖。
+        消除复合主键就可以避免部分依赖。增加单列关键字。
+    -- 3NF, 第三范式
+        满足第二范式的前提下，不能出现传递依赖。
+        某个字段依赖于主键，而有其他字段依赖于该字段。这就是传递依赖。
+        将一个实体信息的数据放在一个表内实现。
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="select" tabindex="-1"><a class="header-anchor" href="#select" aria-hidden="true">#</a> SELECT</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* SELECT */ ------------------
+SELECT [ALL|DISTINCT] select_expr FROM -&gt; WHERE -&gt; GROUP BY [合计函数] -&gt; HAVING -&gt; ORDER BY -&gt; LIMIT
+a. select_expr
+    -- 可以用 * 表示所有字段。
+        select * from tb;
+    -- 可以使用表达式（计算公式、函数调用、字段也是个表达式）
+        select stu, 29+25, now() from tb;
+    -- 可以为每个列使用别名。适用于简化列标识，避免多个列标识符重复。
+        - 使用 as 关键字，也可省略 as.
+        select stu+10 as add10 from tb;
+b. FROM 子句
+    用于标识查询来源。
+    -- 可以为表起别名。使用as关键字。
+        SELECT * FROM tb1 AS tt, tb2 AS bb;
+    -- from子句后，可以同时出现多个表。
+        -- 多个表会横向叠加到一起，而数据会形成一个笛卡尔积。
+        SELECT * FROM tb1, tb2;
+    -- 向优化符提示如何选择索引
+        USE INDEX、IGNORE INDEX、FORCE INDEX
+        SELECT * FROM table1 USE INDEX (key1,key2) WHERE key1=1 AND key2=2 AND key3=3;
+        SELECT * FROM table1 IGNORE INDEX (key3) WHERE key1=1 AND key2=2 AND key3=3;
+c. WHERE 子句
+    -- 从from获得的数据源中进行筛选。
+    -- 整型1表示真，0表示假。
+    -- 表达式由运算符和运算数组成。
+        -- 运算数：变量（字段）、值、函数返回值
+        -- 运算符：
+            =, &lt;=&gt;, &lt;&gt;, !=, &lt;=, &lt;, &gt;=, &gt;, !, &amp;&amp;, ||,
+            in (not) null, (not) like, (not) in, (not) between and, is (not), and, or, not, xor
+            is/is not 加上ture/false/unknown，检验某个值的真假
+            &lt;=&gt;与&lt;&gt;功能相同，&lt;=&gt;可用于null比较
+d. GROUP BY 子句, 分组子句
+    GROUP BY 字段/别名 [排序方式]
+    分组后会进行排序。升序：ASC，降序：DESC
+    以下[合计函数]需配合 GROUP BY 使用：
+    count 返回不同的非NULL值数目  count(*)、count(字段)
+    sum 求和
+    max 求最大值
+    min 求最小值
+    avg 求平均值
+    group_concat 返回带有来自一个组的连接的非NULL值的字符串结果。组内字符串连接。
+e. HAVING 子句，条件子句
+    与 where 功能、用法相同，执行时机不同。
+    where 在开始时执行检测数据，对原数据进行过滤。
+    having 对筛选出的结果再次进行过滤。
+    having 字段必须是查询出来的，where 字段必须是数据表存在的。
+    where 不可以使用字段的别名，having 可以。因为执行WHERE代码时，可能尚未确定列值。
+    where 不可以使用合计函数。一般需用合计函数才会用 having
+    SQL标准要求HAVING必须引用GROUP BY子句中的列或用于合计函数中的列。
+f. ORDER BY 子句，排序子句
+    order by 排序字段/别名 排序方式 [,排序字段/别名 排序方式]...
+    升序：ASC，降序：DESC
+    支持多个字段的排序。
+g. LIMIT 子句，限制结果数量子句
+    仅对处理好的结果进行数量限制。将处理好的结果的看作是一个集合，按照记录出现的顺序，索引从0开始。
+    limit 起始位置, 获取条数
+    省略第一个参数，表示从索引0开始。limit 获取条数
+h. DISTINCT, ALL 选项
+    distinct 去除重复记录
+    默认为 all, 全部记录
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="union" tabindex="-1"><a class="header-anchor" href="#union" aria-hidden="true">#</a> UNION</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* UNION */ ------------------
+    将多个select查询的结果组合成一个结果集合。
+    SELECT ... UNION [ALL|DISTINCT] SELECT ...
+    默认 DISTINCT 方式，即所有返回的行都是唯一的
+    建议，对每个SELECT查询加上小括号包裹。
+    ORDER BY 排序时，需加上 LIMIT 进行结合。
+    需要各select查询的字段数量一样。
+    每个select查询的字段列表(数量、类型)应一致，因为结果中的字段名以第一条select语句为准。
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="子查询" tabindex="-1"><a class="header-anchor" href="#子查询" aria-hidden="true">#</a> 子查询</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* 子查询 */ ------------------
+    - 子查询需用括号包裹。
+-- from型
+    from后要求是一个表，必须给子查询结果取个别名。
+    - 简化每个查询内的条件。
+    - from型需将结果生成一个临时表格，可用以原表的锁定的释放。
+    - 子查询返回一个表，表型子查询。
+    select * from (select * from tb where id&gt;0) as subfrom where id&gt;1;
+-- where型
+    - 子查询返回一个值，标量子查询。
+    - 不需要给子查询取别名。
+    - where子查询内的表，不能直接用以更新。
+    select * from tb where money = (select max(money) from tb);
+    -- 列子查询
+        如果子查询结果返回的是一列。
+        使用 in 或 not in 完成查询
+        exists 和 not exists 条件
+            如果子查询返回数据，则返回1或0。常用于判断条件。
+            select column1 from t1 where exists (select * from t2);
+    -- 行子查询
+        查询条件是一个行。
+        select * from t1 where (id, gender) in (select id, gender from t2);
+        行构造符：(col1, col2, ...) 或 ROW(col1, col2, ...)
+        行构造符通常用于与对能返回两个或两个以上列的子查询进行比较。
+    -- 特殊运算符
+    != all()    相当于 not in
+    = some()    相当于 in。any 是 some 的别名
+    != some()   不等同于 not in，不等于其中某一个。
+    all, some 可以配合其他运算符一起使用。
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="连接查询-join" tabindex="-1"><a class="header-anchor" href="#连接查询-join" aria-hidden="true">#</a> 连接查询(join)</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* 连接查询(join) */ ------------------
+    将多个表的字段进行连接，可以指定连接条件。
+-- 内连接(inner join)
+    - 默认就是内连接，可省略inner。
+    - 只有数据存在时才能发送连接。即连接结果不能出现空行。
+    on 表示连接条件。其条件表达式与where类似。也可以省略条件（表示条件永远为真）
+    也可用where表示连接条件。
+    还有 using, 但需字段名相同。 using(字段名)
+    -- 交叉连接 cross join
+        即，没有条件的内连接。
+        select * from tb1 cross join tb2;
+-- 外连接(outer join)
+    - 如果数据不存在，也会出现在连接结果中。
+    -- 左外连接 left join
+        如果数据不存在，左表记录会出现，而右表为null填充
+    -- 右外连接 right join
+        如果数据不存在，右表记录会出现，而左表为null填充
+-- 自然连接(natural join)
+    自动判断连接条件完成连接。
+    相当于省略了using，会自动查找相同字段名。
+    natural join
+    natural left join
+    natural right join
+select info.id, info.name, info.stu_num, extra_info.hobby, extra_info.sex from info, extra_info where info.stu_num = extra_info.stu_id;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="truncate" tabindex="-1"><a class="header-anchor" href="#truncate" aria-hidden="true">#</a> TRUNCATE</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* TRUNCATE */ ------------------
+TRUNCATE [TABLE] tbl_name
+清空数据
+删除重建表
+区别：
+1，truncate 是删除表再创建，delete 是逐条删除
+2，truncate 重置auto_increment的值。而delete不会
+3，truncate 不知道删除了几条，而delete知道。
+4，当被用于带分区的表时，truncate 会保留分区
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="备份与还原" tabindex="-1"><a class="header-anchor" href="#备份与还原" aria-hidden="true">#</a> 备份与还原</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* 备份与还原 */ ------------------
+备份，将数据的结构与表内数据保存起来。
+利用 mysqldump 指令完成。
+-- 导出
+mysqldump [options] db_name [tables]
+mysqldump [options] ---database DB1 [DB2 DB3...]
+mysqldump [options] --all--database
+1. 导出一张表
+　　mysqldump -u用户名 -p密码 库名 表名 &gt; 文件名(D:/a.sql)
+2. 导出多张表
+　　mysqldump -u用户名 -p密码 库名 表1 表2 表3 &gt; 文件名(D:/a.sql)
+3. 导出所有表
+　　mysqldump -u用户名 -p密码 库名 &gt; 文件名(D:/a.sql)
+4. 导出一个库
+　　mysqldump -u用户名 -p密码 --lock-all-tables --database 库名 &gt; 文件名(D:/a.sql)
+可以-w携带WHERE条件
+-- 导入
+1. 在登录mysql的情况下：
+　　source  备份文件
+2. 在不登录的情况下
+　　mysql -u用户名 -p密码 库名 &lt; 备份文件
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="视图" tabindex="-1"><a class="header-anchor" href="#视图" aria-hidden="true">#</a> 视图</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>什么是视图：
+    视图是一个虚拟表，其内容由查询定义。同真实的表一样，视图包含一系列带有名称的列和行数据。但是，视图并不在数据库中以存储的数据值集形式存在。行和列数据来自由定义视图的查询所引用的表，并且在引用视图时动态生成。
+    视图具有表结构文件，但不存在数据文件。
+    对其中所引用的基础表来说，视图的作用类似于筛选。定义视图的筛选可以来自当前或其它数据库的一个或多个表，或者其它视图。通过视图进行查询没有任何限制，通过它们进行数据修改时的限制也很少。
+    视图是存储在数据库中的查询的sql语句，它主要出于两种原因：安全原因，视图可以隐藏一些数据，如：社会保险基金表，可以用视图只显示姓名，地址，而不显示社会保险号和工资数等，另一原因是可使复杂的查询易于理解和使用。
+-- 创建视图
+CREATE [OR REPLACE] [ALGORITHM = {UNDEFINED | MERGE | TEMPTABLE}] VIEW view_name [(column_list)] AS select_statement
+    - 视图名必须唯一，同时不能与表重名。
+    - 视图可以使用select语句查询到的列名，也可以自己指定相应的列名。
+    - 可以指定视图执行的算法，通过ALGORITHM指定。
+    - column_list如果存在，则数目必须等于SELECT语句检索的列数
+-- 查看结构
+    SHOW CREATE VIEW view_name
+-- 删除视图
+    - 删除视图后，数据依然存在。
+    - 可同时删除多个视图。
+    DROP VIEW [IF EXISTS] view_name ...
+-- 修改视图结构
+    - 一般不修改视图，因为不是所有的更新视图都会映射到表上。
+    ALTER VIEW view_name [(column_list)] AS select_statement
+-- 视图作用
+    1. 简化业务逻辑
+    2. 对客户端隐藏真实的表结构
+-- 视图算法(ALGORITHM)
+    MERGE       合并
+        将视图的查询语句，与外部查询需要先合并再执行！
+    TEMPTABLE   临时表
+        将视图执行完毕后，形成临时表，再做外层查询！
+    UNDEFINED   未定义(默认)，指的是MySQL自主去选择相应的算法。
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="事务-transaction" tabindex="-1"><a class="header-anchor" href="#事务-transaction" aria-hidden="true">#</a> 事务(transaction)</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>事务是指逻辑上的一组操作，组成这组操作的各个单元，要不全成功要不全失败。
+    - 支持连续SQL的集体成功或集体撤销。
+    - 事务是数据库在数据完整性方面的一个功能。
+    - 需要利用 InnoDB 或 BDB 存储引擎，对自动提交的特性支持完成。
+    - InnoDB被称为事务安全型引擎。
+-- 事务开启
+    START TRANSACTION; 或者 BEGIN;
+    开启事务后，所有被执行的SQL语句均被认作当前事务内的SQL语句。
+-- 事务提交
+    COMMIT;
+-- 事务回滚
+    ROLLBACK;
+    如果部分操作发生问题，映射到事务开启前。
+-- 事务的特性
+    1. 原子性（Atomicity）
+        事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。
+    2. 一致性（Consistency）
+        事务前后数据的完整性必须保持一致。
+        - 事务开始和结束时，外部数据一致
+        - 在整个事务过程中，操作是连续的
+    3. 隔离性（Isolation）
+        多个用户并发访问数据库时，一个用户的事务不能被其它用户的事务所干扰，多个并发事务之间的数据要相互隔离。
+    4. 持久性（Durability）
+        一个事务一旦被提交，它对数据库中的数据改变就是永久性的。
+-- 事务的实现
+    1. 要求是事务支持的表类型
+    2. 执行一组相关的操作前开启事务
+    3. 整组操作完成后，都成功，则提交；如果存在失败，选择回滚，则会回到事务开始的备份点。
+-- 事务的原理
+    利用InnoDB的自动提交(autocommit)特性完成。
+    普通的MySQL执行语句后，当前的数据提交操作均可被其他客户端可见。
+    而事务是暂时关闭“自动提交”机制，需要commit提交持久化数据操作。
+-- 注意
+    1. 数据定义语言（DDL）语句不能被回滚，比如创建或取消数据库的语句，和创建、取消或更改表或存储的子程序的语句。
+    2. 事务不能被嵌套
+-- 保存点
+    SAVEPOINT 保存点名称 -- 设置一个事务保存点
+    ROLLBACK TO SAVEPOINT 保存点名称 -- 回滚到保存点
+    RELEASE SAVEPOINT 保存点名称 -- 删除保存点
+-- InnoDB自动提交特性设置
+    SET autocommit = 0|1;   0表示关闭自动提交，1表示开启自动提交。
+    - 如果关闭了，那普通操作的结果对其他客户端也不可见，需要commit提交后才能持久化数据操作。
+    - 也可以关闭自动提交来开启事务。但与START TRANSACTION不同的是，
+        SET autocommit是永久改变服务器的设置，直到下次再次修改该设置。(针对当前连接)
+        而START TRANSACTION记录开启前的状态，而一旦事务提交或回滚后就需要再次开启事务。(针对当前事务)
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="锁表" tabindex="-1"><a class="header-anchor" href="#锁表" aria-hidden="true">#</a> 锁表</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* 锁表 */
+表锁定只用于防止其它客户端进行不正当地读取和写入
+MyISAM 支持表锁，InnoDB 支持行锁
+-- 锁定
+    LOCK TABLES tbl_name [AS alias]
+-- 解锁
+    UNLOCK TABLES
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="触发器" tabindex="-1"><a class="header-anchor" href="#触发器" aria-hidden="true">#</a> 触发器</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* 触发器 */ ------------------
+    触发程序是与表有关的命名数据库对象，当该表出现特定事件时，将激活该对象
+    监听：记录的增加、修改、删除。
+-- 创建触发器
+CREATE TRIGGER trigger_name trigger_time trigger_event ON tbl_name FOR EACH ROW trigger_stmt
+    参数：
+    trigger_time是触发程序的动作时间。它可以是 before 或 after，以指明触发程序是在激活它的语句之前或之后触发。
+    trigger_event指明了激活触发程序的语句的类型
+        INSERT：将新行插入表时激活触发程序
+        UPDATE：更改某一行时激活触发程序
+        DELETE：从表中删除某一行时激活触发程序
+    tbl_name：监听的表，必须是永久性的表，不能将触发程序与TEMPORARY表或视图关联起来。
+    trigger_stmt：当触发程序激活时执行的语句。执行多个语句，可使用BEGIN...END复合语句结构
+-- 删除
+DROP TRIGGER [schema_name.]trigger_name
+可以使用old和new代替旧的和新的数据
+    更新操作，更新前是old，更新后是new.
+    删除操作，只有old.
+    增加操作，只有new.
+-- 注意
+    1. 对于具有相同触发程序动作时间和事件的给定表，不能有两个触发程序。
+-- 字符连接函数
+concat(str1,str2,...])
+concat_ws(separator,str1,str2,...)
+-- 分支语句
+if 条件 then
+    执行语句
+elseif 条件 then
+    执行语句
+else
+    执行语句
+end if;
+-- 修改最外层语句结束符
+delimiter 自定义结束符号
+    SQL语句
+自定义结束符号
+delimiter ;     -- 修改回原来的分号
+-- 语句块包裹
+begin
+    语句块
+end
+-- 特殊的执行
+1. 只要添加记录，就会触发程序。
+2. Insert into on duplicate key update 语法会触发：
+    如果没有重复记录，会触发 before insert, after insert;
+    如果有重复记录并更新，会触发 before insert, before update, after update;
+    如果有重复记录但是没有发生更新，则触发 before insert, before update
+3. Replace 语法 如果有记录，则执行 before insert, before delete, after delete, after insert
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="sql编程" tabindex="-1"><a class="header-anchor" href="#sql编程" aria-hidden="true">#</a> SQL编程</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* SQL编程 */ ------------------
+--// 局部变量 ----------
+-- 变量声明
+    declare var_name[,...] type [default value]
+    这个语句被用来声明局部变量。要给变量提供一个默认值，请包含一个default子句。值可以被指定为一个表达式，不需要为一个常数。如果没有default子句，初始值为null。
+-- 赋值
+    使用 set 和 select into 语句为变量赋值。
+    - 注意：在函数内是可以使用全局变量（用户自定义的变量）
+--// 全局变量 ----------
+-- 定义、赋值
+set 语句可以定义并为变量赋值。
+set @var = value;
+也可以使用select into语句为变量初始化并赋值。这样要求select语句只能返回一行，但是可以是多个字段，就意味着同时为多个变量进行赋值，变量的数量需要与查询的列数一致。
+还可以把赋值语句看作一个表达式，通过select执行完成。此时为了避免=被当作关系运算符看待，使用:=代替。（set语句可以使用= 和 :=）。
+select @var:=20;
+select @v1:=id, @v2=name from t1 limit 1;
+select * from tbl_name where @var:=30;
+select into 可以将表中查询获得的数据赋给变量。
+    -| select max(height) into @max_height from tb;
+-- 自定义变量名
+为了避免select语句中，用户自定义的变量与系统标识符（通常是字段名）冲突，用户自定义变量在变量名前使用@作为开始符号。
+@var=10;
+    - 变量被定义后，在整个会话周期都有效（登录到退出）
+--// 控制结构 ----------
+-- if语句
+if search_condition then
+    statement_list   
+[elseif search_condition then
+    statement_list]
+...
+[else
+    statement_list]
+end if;
+-- case语句
+CASE value WHEN [compare-value] THEN result
+[WHEN [compare-value] THEN result ...]
+[ELSE result]
+END
+-- while循环
+[begin_label:] while search_condition do
+    statement_list
+end while [end_label];
+- 如果需要在循环内提前终止 while循环，则需要使用标签；标签需要成对出现。
+    -- 退出循环
+        退出整个循环 leave
+        退出当前循环 iterate
+        通过退出的标签决定退出哪个循环
+--// 内置函数 ----------
+-- 数值函数
+abs(x)          -- 绝对值 abs(-10.9) = 10
+format(x, d)    -- 格式化千分位数值 format(1234567.456, 2) = 1,234,567.46
+ceil(x)         -- 向上取整 ceil(10.1) = 11
+floor(x)        -- 向下取整 floor (10.1) = 10
+round(x)        -- 四舍五入去整
+mod(m, n)       -- m%n m mod n 求余 10%3=1
+pi()            -- 获得圆周率
+pow(m, n)       -- m^n
+sqrt(x)         -- 算术平方根
+rand()          -- 随机数
+truncate(x, d)  -- 截取d位小数
+-- 时间日期函数
+now(), current_timestamp();     -- 当前日期时间
+current_date();                 -- 当前日期
+current_time();                 -- 当前时间
+date(&#39;yyyy-mm-dd hh:ii:ss&#39;);    -- 获取日期部分
+time(&#39;yyyy-mm-dd hh:ii:ss&#39;);    -- 获取时间部分
+date_format(&#39;yyyy-mm-dd hh:ii:ss&#39;, &#39;%d %y %a %d %m %b %j&#39;); -- 格式化时间
+unix_timestamp();               -- 获得unix时间戳
+from_unixtime();                -- 从时间戳获得时间
+-- 字符串函数
+length(string)          -- string长度，字节
+char_length(string)     -- string的字符个数
+substring(str, position [,length])      -- 从str的position开始,取length个字符
+replace(str ,search_str ,replace_str)   -- 在str中用replace_str替换search_str
+instr(string ,substring)    -- 返回substring首次在string中出现的位置
+concat(string [,...])   -- 连接字串
+charset(str)            -- 返回字串字符集
+lcase(string)           -- 转换成小写
+left(string, length)    -- 从string2中的左边起取length个字符
+load_file(file_name)    -- 从文件读取内容
+locate(substring, string [,start_position]) -- 同instr,但可指定开始位置
+lpad(string, length, pad)   -- 重复用pad加在string开头,直到字串长度为length
+ltrim(string)           -- 去除前端空格
+repeat(string, count)   -- 重复count次
+rpad(string, length, pad)   --在str后用pad补充,直到长度为length
+rtrim(string)           -- 去除后端空格
+strcmp(string1 ,string2)    -- 逐字符比较两字串大小
+-- 流程函数
+case when [condition] then result [when [condition] then result ...] [else result] end   多分支
+if(expr1,expr2,expr3)  双分支。
+-- 聚合函数
+count()
+sum();
+max();
+min();
+avg();
+group_concat()
+-- 其他常用函数
+md5();
+default();
+--// 存储函数，自定义函数 ----------
+-- 新建
+    CREATE FUNCTION function_name (参数列表) RETURNS 返回值类型
+        函数体
+    - 函数名，应该合法的标识符，并且不应该与已有的关键字冲突。
+    - 一个函数应该属于某个数据库，可以使用db_name.funciton_name的形式执行当前函数所属数据库，否则为当前数据库。
+    - 参数部分，由&quot;参数名&quot;和&quot;参数类型&quot;组成。多个参数用逗号隔开。
+    - 函数体由多条可用的mysql语句，流程控制，变量声明等语句构成。
+    - 多条语句应该使用 begin...end 语句块包含。
+    - 一定要有 return 返回值语句。
+-- 删除
+    DROP FUNCTION [IF EXISTS] function_name;
+-- 查看
+    SHOW FUNCTION STATUS LIKE &#39;partten&#39;
+    SHOW CREATE FUNCTION function_name;
+-- 修改
+    ALTER FUNCTION function_name 函数选项
+--// 存储过程，自定义功能 ----------
+-- 定义
+存储存储过程 是一段代码（过程），存储在数据库中的sql组成。
+一个存储过程通常用于完成一段业务逻辑，例如报名，交班费，订单入库等。
+而一个函数通常专注与某个功能，视为其他程序服务的，需要在其他语句中调用函数才可以，而存储过程不能被其他调用，是自己执行 通过call执行。
+-- 创建
+CREATE PROCEDURE sp_name (参数列表)
+    过程体
+参数列表：不同于函数的参数列表，需要指明参数类型
+IN，表示输入型
+OUT，表示输出型
+INOUT，表示混合型
+注意，没有返回值。
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="存储过程" tabindex="-1"><a class="header-anchor" href="#存储过程" aria-hidden="true">#</a> 存储过程</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* 存储过程 */ ------------------
+存储过程是一段可执行性代码的集合。相比函数，更偏向于业务逻辑。
+调用：CALL 过程名
+-- 注意
+- 没有返回值。
+- 只能单独调用，不可夹杂在其他语句中
+-- 参数
+IN|OUT|INOUT 参数名 数据类型
+IN      输入：在调用过程中，将数据输入到过程体内部的参数
+OUT     输出：在调用过程中，将过程体处理完的结果返回到客户端
+INOUT   输入输出：既可输入，也可输出
+-- 语法
+CREATE PROCEDURE 过程名 (参数列表)
+BEGIN
+    过程体
+END
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="用户和权限管理" tabindex="-1"><a class="header-anchor" href="#用户和权限管理" aria-hidden="true">#</a> 用户和权限管理</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* 用户和权限管理 */ ------------------
+-- root密码重置
+1. 停止MySQL服务
+2.  [Linux] /usr/local/mysql/bin/safe_mysqld --skip-grant-tables &amp;
+    [Windows] mysqld --skip-grant-tables
+3. use mysql;
+4. UPDATE `user` SET PASSWORD=PASSWORD(&quot;密码&quot;) WHERE `user` = &quot;root&quot;;
+5. FLUSH PRIVILEGES;
+用户信息表：mysql.user
+-- 刷新权限
+FLUSH PRIVILEGES;
+-- 增加用户
+CREATE USER 用户名 IDENTIFIED BY [PASSWORD] 密码(字符串)
+    - 必须拥有mysql数据库的全局CREATE USER权限，或拥有INSERT权限。
+    - 只能创建用户，不能赋予权限。
+    - 用户名，注意引号：如 &#39;user_name&#39;@&#39;192.168.1.1&#39;
+    - 密码也需引号，纯数字密码也要加引号
+    - 要在纯文本中指定密码，需忽略PASSWORD关键词。要把密码指定为由PASSWORD()函数返回的混编值，需包含关键字PASSWORD
+-- 重命名用户
+RENAME USER old_user TO new_user
+-- 设置密码
+SET PASSWORD = PASSWORD(&#39;密码&#39;)  -- 为当前用户设置密码
+SET PASSWORD FOR 用户名 = PASSWORD(&#39;密码&#39;) -- 为指定用户设置密码
+-- 删除用户
+DROP USER 用户名
+-- 分配权限/添加用户
+GRANT 权限列表 ON 表名 TO 用户名 [IDENTIFIED BY [PASSWORD] &#39;password&#39;]
+    - all privileges 表示所有权限
+    - *.* 表示所有库的所有表
+    - 库名.表名 表示某库下面的某表
+    GRANT ALL PRIVILEGES ON `pms`.* TO &#39;pms&#39;@&#39;%&#39; IDENTIFIED BY &#39;pms0817&#39;;
+-- 查看权限
+SHOW GRANTS FOR 用户名
+    -- 查看当前用户权限
+    SHOW GRANTS; 或 SHOW GRANTS FOR CURRENT_USER; 或 SHOW GRANTS FOR CURRENT_USER();
+-- 撤消权限
+REVOKE 权限列表 ON 表名 FROM 用户名
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 用户名   -- 撤销所有权限
+-- 权限层级
+-- 要使用GRANT或REVOKE，您必须拥有GRANT OPTION权限，并且您必须用于您正在授予或撤销的权限。
+全局层级：全局权限适用于一个给定服务器中的所有数据库，mysql.user
+    GRANT ALL ON *.*和 REVOKE ALL ON *.*只授予和撤销全局权限。
+数据库层级：数据库权限适用于一个给定数据库中的所有目标，mysql.db, mysql.host
+    GRANT ALL ON db_name.*和REVOKE ALL ON db_name.*只授予和撤销数据库权限。
+表层级：表权限适用于一个给定表中的所有列，mysql.talbes_priv
+    GRANT ALL ON db_name.tbl_name和REVOKE ALL ON db_name.tbl_name只授予和撤销表权限。
+列层级：列权限适用于一个给定表中的单一列，mysql.columns_priv
+    当使用REVOKE时，您必须指定与被授权列相同的列。
+-- 权限列表
+ALL [PRIVILEGES]    -- 设置除GRANT OPTION之外的所有简单权限
+ALTER   -- 允许使用ALTER TABLE
+ALTER ROUTINE   -- 更改或取消已存储的子程序
+CREATE  -- 允许使用CREATE TABLE
+CREATE ROUTINE  -- 创建已存储的子程序
+CREATE TEMPORARY TABLES     -- 允许使用CREATE TEMPORARY TABLE
+CREATE USER     -- 允许使用CREATE USER, DROP USER, RENAME USER和REVOKE ALL PRIVILEGES。
+CREATE VIEW     -- 允许使用CREATE VIEW
+DELETE  -- 允许使用DELETE
+DROP    -- 允许使用DROP TABLE
+EXECUTE     -- 允许用户运行已存储的子程序
+FILE    -- 允许使用SELECT...INTO OUTFILE和LOAD DATA INFILE
+INDEX   -- 允许使用CREATE INDEX和DROP INDEX
+INSERT  -- 允许使用INSERT
+LOCK TABLES     -- 允许对您拥有SELECT权限的表使用LOCK TABLES
+PROCESS     -- 允许使用SHOW FULL PROCESSLIST
+REFERENCES  -- 未被实施
+RELOAD  -- 允许使用FLUSH
+REPLICATION CLIENT  -- 允许用户询问从属服务器或主服务器的地址
+REPLICATION SLAVE   -- 用于复制型从属服务器（从主服务器中读取二进制日志事件）
+SELECT  -- 允许使用SELECT
+SHOW DATABASES  -- 显示所有数据库
+SHOW VIEW   -- 允许使用SHOW CREATE VIEW
+SHUTDOWN    -- 允许使用mysqladmin shutdown
+SUPER   -- 允许使用CHANGE MASTER, KILL, PURGE MASTER LOGS和SET GLOBAL语句，mysqladmin debug命令；允许您连接（一次），即使已达到max_connections。
+UPDATE  -- 允许使用UPDATE
+USAGE   -- “无权限”的同义词
+GRANT OPTION    -- 允许授予权限
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="表维护" tabindex="-1"><a class="header-anchor" href="#表维护" aria-hidden="true">#</a> 表维护</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* 表维护 */
+-- 分析和存储表的关键字分布
+ANALYZE [LOCAL | NO_WRITE_TO_BINLOG] TABLE 表名 ...
+-- 检查一个或多个表是否有错误
+CHECK TABLE tbl_name [, tbl_name] ... [option] ...
+option = {QUICK | FAST | MEDIUM | EXTENDED | CHANGED}
+-- 整理数据文件的碎片
+OPTIMIZE [LOCAL | NO_WRITE_TO_BINLOG] TABLE tbl_name [, tbl_name] ...
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="杂项" tabindex="-1"><a class="header-anchor" href="#杂项" aria-hidden="true">#</a> 杂项</h3><div class="language-mysql ext-mysql line-numbers-mode"><pre class="language-mysql"><code>/* 杂项 */ ------------------
+1. 可用反引号（`）为标识符（库名、表名、字段名、索引、别名）包裹，以避免与关键字重名！中文也可以作为标识符！
+2. 每个库目录存在一个保存当前数据库的选项文件db.opt。
+3. 注释：
+    单行注释 # 注释内容
+    多行注释 /* 注释内容 */
+    单行注释 -- 注释内容     (标准SQL注释风格，要求双破折号后加一空格符（空格、TAB、换行等）)
+4. 模式通配符：
+    _   任意单个字符
+    %   任意多个字符，甚至包括零字符
+    单引号需要进行转义 \&#39;
+5. CMD命令行内的语句结束符可以为 &quot;;&quot;, &quot;\G&quot;, &quot;\g&quot;，仅影响显示结果。其他地方还是用分号结束。delimiter 可修改当前对话的语句结束符。
+6. SQL对大小写不敏感
+7. 清除已有语句：\c
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div><!----><footer class="page-meta"><div class="meta-item edit-link"><a href="https://github.com/heplex/EzfriDocs/edit/main/docs/RD/database/mysql/a-thousand-lines-of-mysql-study-notes.md" rel="noopener noreferrer" target="_blank" aria-label="编辑此页" class="nav-link label"><!--[--><svg xmlns="http://www.w3.org/2000/svg" class="icon edit-icon" viewbox="0 0 1024 1024" fill="currentColor" aria-label="edit icon"><path d="M430.818 653.65a60.46 60.46 0 0 1-50.96-93.281l71.69-114.012 7.773-10.365L816.038 80.138A60.46 60.46 0 0 1 859.225 62a60.46 60.46 0 0 1 43.186 18.138l43.186 43.186a60.46 60.46 0 0 1 0 86.373L588.879 565.55l-8.637 8.637-117.466 68.234a60.46 60.46 0 0 1-31.958 11.229z"></path><path d="M728.802 962H252.891A190.883 190.883 0 0 1 62.008 771.98V296.934a190.883 190.883 0 0 1 190.883-192.61h267.754a60.46 60.46 0 0 1 0 120.92H252.891a69.962 69.962 0 0 0-69.098 69.099V771.98a69.962 69.962 0 0 0 69.098 69.098h475.911A69.962 69.962 0 0 0 797.9 771.98V503.363a60.46 60.46 0 1 1 120.922 0V771.98A190.883 190.883 0 0 1 728.802 962z"></path></svg><!--]-->编辑此页<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></div><div class="meta-item update-time"><span class="label">上次编辑于: </span><span class="info">2022/12/2 21:59:58</span></div><div class="meta-item contributors"><span class="label">贡献者: </span><!--[--><!--[--><span class="contributor" title="email: zcilive@gmail.com">chun.zheng</span><!--]--><!--]--></div></footer><nav class="page-nav"><a href="/RD/database/mysql/mysql-questions-01.html" class="nav-link prev" aria-label="MySQL知识点&amp;面试题总结"><div class="hint"><span class="arrow left"></span>上一页</div><div class="link"><!---->MySQL知识点&amp;面试题总结</div></a><a href="/RD/database/mysql/mysql-high-performance-optimization-specification-recommendations.html" class="nav-link next" aria-label="MySQL高性能优化规范建议"><div class="hint">下一页<span class="arrow right"></span></div><div class="link">MySQL高性能优化规范建议<!----></div></a></nav><!----><!----><!--]--></main><!--]--><footer class="footer-wrapper"><div class="footer"><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2021004971号-2</a></div><div class="copyright">Copyright © 2022 EzFri</div></footer><!--]--></div><!--]--><!----><!--]--></div>
+    <script type="module" src="/assets/app.27c4730f.js" defer></script>
+  </body>
+</html>

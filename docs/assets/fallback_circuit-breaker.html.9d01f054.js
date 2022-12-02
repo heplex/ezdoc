@@ -1,0 +1,1 @@
+import{_ as r}from"./plugin-vue_export-helper.21dcd24c.js";import{o as c,c as t,b as e}from"./app.27c4730f.js";const a={},o=e("p",null,[e("strong",null,"\u964D\u7EA7&\u7194\u65AD")],-1),l=[o];function _(n,s){return c(),t("div",null,l)}var u=r(a,[["render",_],["__file","fallback&circuit-breaker.html.vue"]]);export{u as default};
