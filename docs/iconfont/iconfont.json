@@ -1,10 +1,192 @@
 {
   "id": "3485688",
-  "name": "untseDocs",
+  "name": "EzfriDocs",
   "font_family": "iconfont",
   "css_prefix_text": "icon-",
   "description": "",
   "glyphs": [
+    {
+      "icon_id": "9189112",
+      "name": "后端开发",
+      "font_class": "houduankaifa",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "12515462",
+      "name": "运维",
+      "font_class": "yunwei",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "20784493",
+      "name": "前端语言",
+      "font_class": "qianduankaifa",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "18125972",
+      "name": "Collection",
+      "font_class": "Collection",
+      "unicode": "e86a",
+      "unicode_decimal": 59498
+    },
+    {
+      "icon_id": "29236698",
+      "name": "高可用网络",
+      "font_class": "highavailable",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "11488315",
+      "name": "security-fill",
+      "font_class": "security-fill",
+      "unicode": "e78b",
+      "unicode_decimal": 59275
+    },
+    {
+      "icon_id": "19020996",
+      "name": "API调用",
+      "font_class": "APItiaoyong",
+      "unicode": "e6e9",
+      "unicode_decimal": 59113
+    },
+    {
+      "icon_id": "3819699",
+      "name": "组织协调能力",
+      "font_class": "zuzhixietiaonengli",
+      "unicode": "e7ac",
+      "unicode_decimal": 59308
+    },
+    {
+      "icon_id": "27045117",
+      "name": "理论公式计算",
+      "font_class": "lilungongshijisuan",
+      "unicode": "e6a1",
+      "unicode_decimal": 59041
+    },
+    {
+      "icon_id": "21053795",
+      "name": "MQ",
+      "font_class": "MQ",
+      "unicode": "e684",
+      "unicode_decimal": 59012
+    },
+    {
+      "icon_id": "691059",
+      "name": "et-performance",
+      "font_class": "et-performance",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "9833336",
+      "name": "高性能",
+      "font_class": "gaoxingneng",
+      "unicode": "e91b",
+      "unicode_decimal": 59675
+    },
+    {
+      "icon_id": "29865158",
+      "name": "分布式",
+      "font_class": "fenbushi",
+      "unicode": "e681",
+      "unicode_decimal": 59009
+    },
+    {
+      "icon_id": "20113952",
+      "name": "bxl-spring-boot",
+      "font_class": "bxl-spring-boot",
+      "unicode": "e6fe",
+      "unicode_decimal": 59134
+    },
+    {
+      "icon_id": "1288158",
+      "name": "智能算法",
+      "font_class": "zhinengsuanfa",
+      "unicode": "e6c8",
+      "unicode_decimal": 59080
+    },
+    {
+      "icon_id": "5484244",
+      "name": "数据结构",
+      "font_class": "shujujiegou",
+      "unicode": "e790",
+      "unicode_decimal": 59280
+    },
+    {
+      "icon_id": "21053808",
+      "name": "操作系统",
+      "font_class": "caozuoxitong",
+      "unicode": "e687",
+      "unicode_decimal": 59015
+    },
+    {
+      "icon_id": "10331069",
+      "name": "new",
+      "font_class": "new",
+      "unicode": "e680",
+      "unicode_decimal": 59008
+    },
+    {
+      "icon_id": "31987455",
+      "name": "虚拟机",
+      "font_class": "jvm",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "1788967",
+      "name": "集合",
+      "font_class": "jihe",
+      "unicode": "e6a5",
+      "unicode_decimal": 59045
+    },
+    {
+      "icon_id": "3876165",
+      "name": "redis",
+      "font_class": "redis",
+      "unicode": "e619",
+      "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "27545709",
+      "name": "并发数量",
+      "font_class": "bingfashuliang",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "29236653",
+      "name": "多线路",
+      "font_class": "threading",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "7045321",
+      "name": "系统设计",
+      "font_class": "xitongsheji",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
+      "icon_id": "2142819",
+      "name": "framework",
+      "font_class": "framework",
+      "unicode": "e69e",
+      "unicode_decimal": 59038
+    },
+    {
+      "icon_id": "16078701",
+      "name": "框架管理1",
+      "font_class": "kuangjiaguanli1",
+      "unicode": "e686",
+      "unicode_decimal": 59014
+    },
     {
       "icon_id": "431778",
       "name": "git",

@@ -2,4 +2,4 @@
 User-agent:*
 Disallow:
 
-Sitemap: https://www.ezfri.com/ezdoc/sitemap.xml
+Sitemap: https://www.ezfri.com/sitemap.xml
