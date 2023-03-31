@@ -1,0 +1,1 @@
+import{_ as a,W as c,X as s,$ as e,a0 as t}from"./framework-b609eea8.js";const r={},o=e("h1",{id:"缓存基础",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#缓存基础","aria-hidden":"true"},"#"),t(" 缓存基础")],-1),n=[o];function _(d,i){return c(),s("div",null,n)}const l=a(r,[["render",_],["__file","cache-basics.html.vue"]]);export{l as default};

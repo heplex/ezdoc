@@ -1,0 +1,1 @@
+import{_ as e,W as t,X as c,$ as s}from"./framework-b609eea8.js";const _={},o=s("p",null,"相同的服务部署多份，避免单点故障。",-1),n=[o];function r(l,a){return t(),c("div",null,n)}const d=e(_,[["render",r],["__file","cluster.html.vue"]]);export{d as default};

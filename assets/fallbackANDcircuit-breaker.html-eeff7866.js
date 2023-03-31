@@ -1,0 +1,1 @@
+import{_ as c,W as t,X as r,$ as e}from"./framework-b609eea8.js";const a={},l=e("p",null,[e("strong",null,"降级&熔断")],-1),n=[l];function o(s,_){return t(),r("div",null,n)}const f=c(a,[["render",o],["__file","fallbackANDcircuit-breaker.html.vue"]]);export{f as default};
